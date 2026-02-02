@@ -1,0 +1,262 @@
+/* ===== HEADER (Figma) - CLASSES tsf-* (match header.php) ===== */
+
+/* ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©vite le dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©calage si barre admin WP masquÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©e */
+html {
+  margin-top: 0 !important;
+}
+
+/* (option) masque la barre admin WP quand connectÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© */
+#wpadminbar {
+  display: none !important;
+}
+
+/* --- header container --- */
+.tsf-header {
+  background: transparent;
+  border-bottom: none;
+}
+
+.tsf-header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 24px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+
+/* --- logo --- */
+.tsf-header__logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+
+/* Custom logo (WP) */
+.tsf-header__logo img,
+.custom-logo {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-height: 36px;
+}
+
+.tsf-logo-img {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-height: 36px;
+}
+.custom-logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* SVG logo (inline) */
+.tsf-logo-svg{
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+
+.tsf-logo-svg path{
+  fill: none !important;
+  stroke: #141414;
+  stroke-width: 2;       
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* placeholder gris si pas de logo (tu peux garder ou supprimer) */
+.tsf-header__logo-placeholder {
+  display: block;
+  width: 140px;
+  height: 34px;
+  background: #d9d9d9;
+  border-radius: 6px;
+}
+
+/* --- nav --- */
+.tsf-nav {
+  justify-self: end;
+}
+
+.tsf-nav__list {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
+
+  margin: 0;
+  padding: 0;
+}
+
+.tsf-nav__list a,
+.tsf-nav__link--button {
+  text-decoration: none;
+
+  /* Figma */
+  color: #141414;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* Dropdown (Nos services) */
+.tsf-nav__item {
+  position: relative;
+}
+
+.tsf-nav__link--button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tsf-nav__caret {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.2s ease;
+  margin-top: 1px;
+}
+
+.tsf-nav__item--services.is-open .tsf-nav__caret {
+  transform: rotate(90deg);
+}
+
+.tsf-nav__dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 220px;
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 10px 0;
+  list-style: none;
+  margin: 0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  display: none;
+  z-index: 10;
+}
+
+.tsf-nav__dropdown a {
+  display: block;
+  padding: 10px 16px;
+  font-size: 16px;
+  color: #141414;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tsf-nav__dropdown a:hover,
+.tsf-nav__dropdown a:focus {
+  background: #e7e7e7;
+}
+
+.tsf-nav__item--services:hover .tsf-nav__caret,
+.tsf-nav__item--services:focus-within .tsf-nav__caret {
+  transform: rotate(45deg);
+}
+
+.tsf-nav__item--services:hover .tsf-nav__dropdown,
+.tsf-nav__item--services:focus-within .tsf-nav__dropdown {
+  display: block;
+}
+
+
+  /* Figma ne montre pas de pill hover */
+  padding: 0;
+
+  /* stabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© */
+  white-space: nowrap;
+}
+
+/* chevron dropdown pour sous-menus WP */
+.tsf-nav__list .menu-item-has-children > a::after {
+  content: "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“Ãƒâ€šÃ‚Â¾";
+  margin-left: 8px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* --- bouton S'identifier (Figma EXACT) --- */
+.tsf-btn-auth {
+  color: #141414;
+
+  display: flex;
+  width: 208px;
+  height: 50px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 42px;
+  background: #D2D2D2;
+
+  text-decoration: none;
+}
+
+.tsf-btn-auth:hover {
+  background: #D2D2D2; /* pas de couleur hover fournie */
+}
+
+.tsf-btn-auth__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tsf-btn-auth__icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.tsf-btn-auth__text {
+  /* Figma */
+  color: #141414;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  /* stabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© */
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .tsf-header__inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .tsf-nav {
+    display: none; /* burger plus tard */
+  }
+}

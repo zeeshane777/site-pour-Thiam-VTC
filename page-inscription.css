@@ -1,0 +1,260 @@
+/* =========================
+   PAGE INSCRIPTION
+   ========================= */
+
+/* Page layout */
+.tsf-register{
+  min-height: calc(100vh - 120px);
+  background: #fff;
+  display: grid;
+  place-items: start center;
+  padding: 72px 16px;
+}
+
+/* Container */
+.tsf-register__card{
+  width: 100%;
+  max-width: 456px;
+}
+
+/* Title */
+.tsf-register__title{
+  color: #000;
+  font-family: Urbanist, system-ui, sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+/* Form stack */
+.tsf-register__form{
+  display: grid;
+  gap: 12px;
+}
+
+/* =========================
+   INPUTS INLINE (comme login)
+   ========================= */
+
+.tsf-field-inline{
+  width: 456px;
+  max-width: 100%;
+  height: 59px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 24px 8px 8px;
+  border-radius: 16px;
+  background: #F7F7F7;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,0.15);
+}
+
+/* label gauche : Satoshi 20 / 500 */
+.tsf-inline-label{
+  color: #141414;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* input droite : Satoshi 20 / 400 + placeholder opacity .5 */
+.tsf-inline-input{
+  flex: 1;
+  height: 100%;
+
+  border: 0;
+  outline: none;
+  background: transparent;
+
+  color: #141414;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  text-align: right;
+}
+
+.tsf-inline-input::placeholder{
+  color: #141414;
+  opacity: 0.5;
+}
+
+/* Focus doux */
+.tsf-field-inline:focus-within{
+  outline: 2px solid rgba(20, 20, 20, 0.15);
+  outline-offset: 2px;
+}
+
+/* =========================
+   TEL : input + badge +33
+   ========================= */
+
+.tsf-field-inline--tel{
+  /* on garde la même box */
+}
+
+.tsf-tel-wrap{
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* on réserve de la place au badge à droite */
+.tsf-inline-input--tel{
+  padding-right: 86px; /* ajuste si ton badge est plus large */
+}
+
+.tsf-flag{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  height: 43px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 0 12px;
+  border-radius: 12px;
+  background: #eaeaea;
+  color: #141414;
+  font-size: 13px;
+}
+
+/* =========================
+   Checkbox
+   ========================= */
+
+.tsf-register__checkbox{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #141414;
+}
+
+.tsf-register__checkbox input{
+  width: 18px;
+  height: 18px;
+}
+
+/* =========================
+   Button
+   ========================= */
+
+.tsf-register__btn{
+  width: 456px;
+  max-width: 100%;
+  height: 59px;
+  padding: 4px 35px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 0;
+  border-radius: 16px;
+  background: #141414;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tsf-register__btn:hover{
+  filter: brightness(0.95);
+}
+
+/* Footer */
+.tsf-register__foot{
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #444;
+}
+
+.tsf-register__link{
+  color: #141414;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Separator */
+.tsf-register__sep{
+  width: 456px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #777;
+  font-size: 13px;
+  margin: 6px 0;
+}
+
+.tsf-register__sep span{
+  flex: 1;
+  height: 1px;
+  background: #d9d9d9;
+}
+
+.tsf-register__sep em{
+  font-style: normal;
+}
+
+/* Social buttons */
+/* Social buttons — alignés avec le design global */
+.tsf-social{
+  width: 340px;
+  height: 43px;
+
+  padding: 10px 10px 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  /* ✅ mêmes codes que tes inputs / CTA */
+  border-radius: 16px;
+  border: 1px solid rgba(20, 20, 20, 0.15);
+  background: #fff;
+
+  /* ✅ typo identique au site */
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #141414;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  /* léger relief comme les inputs */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+
+  margin: 0 auto;
+}
+
+.tsf-social:hover{
+  background: #f7f7f7;
+}
+
+/* icônes */
+.tsf-social__icon{
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+

@@ -1,0 +1,241 @@
+/* =========================
+   PAGE LOGIN (S'identifier)
+   ========================= */
+
+/* Page wrapper */
+.tsf-login-page{
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-items: start center;
+  padding: 64px 16px;
+  background: #fff;
+}
+
+/* Card / container */
+.tsf-login-card{
+  width: 100%;
+  max-width: 456px; /* maquette */
+}
+
+/* Title (Figma) */
+.tsf-login-title{
+  color: #000;
+  font-family: Urbanist, system-ui, sans-serif; /* ✅ même police */
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;                           /* ✅ même alignement */
+  margin: 0 0 20px;
+}
+
+/* Alert */
+.tsf-login-alert{
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fff2f2;
+  border: 1px solid #ffd1d1;
+  color: #7a0000;
+  font-size: 14px;
+}
+
+/* Form layout */
+.tsf-login-form{
+  display: grid;
+  gap: 12px;
+}
+
+/* =========================
+   CHAMPS FIGMA (2 écritures)
+   label gauche + placeholder/valeur droite
+   ========================= */
+
+.tsf-field-inline{
+  width: 456px;
+  max-width: 100%;
+  height: 59px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 24px 8px 8px;     /* Figma */
+  border-radius: 16px;           /* Figma */
+  background: #F7F7F7;           /* DB-Primary */
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.15); /* Figma */
+}
+
+/* Texte gauche (Satoshi 20 / 500) */
+.tsf-inline-label{
+  color: #141414; /* DB-Secondary */
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Input à droite (Satoshi 20 / 400) */
+.tsf-inline-input{
+  flex: 1;
+  height: 100%;
+
+  border: 0;
+  outline: none;
+  background: transparent;
+
+  color: #141414;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  text-align: right;
+}
+
+/* Placeholder (opacity 0.5) */
+.tsf-inline-input::placeholder{
+  color: #141414;
+  opacity: 0.5;
+}
+
+/* Focus (optionnel, propre) */
+.tsf-field-inline:focus-within{
+  outline: 2px solid rgba(20, 20, 20, 0.15);
+  outline-offset: 2px;
+}
+
+/* =========================
+   Checkbox
+   ========================= */
+
+.tsf-checkbox{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #111;
+  user-select: none;
+}
+
+.tsf-checkbox input{
+  width: 18px;
+  height: 18px;
+}
+
+/* =========================
+   Primary button
+   ========================= */
+
+.tsf-btn-primary{
+  width: 456px;
+  max-width: 100%;
+  height: 59px;
+  padding: 4px 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 12px;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tsf-btn-primary:hover{
+  filter: brightness(0.95);
+}
+
+/* Footer text */
+.tsf-login-foot{
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #333;
+  text-align: center;
+}
+
+.tsf-link{
+  color: #000;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Separator "Ou" */
+.tsf-separator{
+  width: 456px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.tsf-separator span{
+  flex: 1;
+  height: 1px;
+  background: #d9d9d9;
+}
+
+.tsf-separator em{
+  font-style: normal;
+}
+
+/* =========================
+   Social buttons
+   ========================= */
+
+/* =========================
+   Social buttons (HARMONISÉS)
+   ========================= */
+
+.tsf-btn-social{
+  width: 340px;
+  height: 43px;
+  padding: 10px 10px 10px 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  /* ✅ mêmes règles que inputs / CTA */
+  border-radius: 16px;
+  border: 1px solid rgba(20, 20, 20, 0.15);
+  background: #fff;
+
+  /* ✅ même typo que le site */
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #141414;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  /* léger relief cohérent */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+
+  margin: 0 auto;
+}
+
+.tsf-btn-social:hover{
+  background: #f7f7f7;
+}
+
+/* Icône */
+.tsf-social-icon{
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+

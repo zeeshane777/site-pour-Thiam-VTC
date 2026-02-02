@@ -1,0 +1,188 @@
+.tsf-account {
+  background: #f6f2ed;
+  min-height: calc(100vh - 80px);
+  padding: 48px 16px 80px;
+}
+
+.tsf-account__wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tsf-account__header {
+  margin-bottom: 28px;
+}
+
+.tsf-account__title {
+  font-family: Urbanist, system-ui, sans-serif;
+  font-size: 42px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+
+.tsf-account__sub {
+  margin: 0;
+  color: #606060;
+  font-size: 16px;
+}
+
+.tsf-account__card {
+  margin: 0 auto;
+  background: #f8f5f1;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 560px;
+  text-align: left;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+}
+
+.tsf-account__section + .tsf-account__section {
+  margin-top: 22px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 18px;
+}
+
+.tsf-account__h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.tsf-account__grid {
+  display: grid;
+  gap: 10px;
+  font-size: 14px;
+  color: #2b2b2b;
+}
+
+.tsf-account__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.tsf-account__label {
+  color: #5a5a5a;
+}
+
+.tsf-account__value {
+  text-align: right;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.tsf-account__input {
+  display: none;
+  width: 100%;
+  max-width: 260px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  color: #1a1a1a;
+  text-align: right;
+}
+
+.tsf-account__edit {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #fff;
+  color: #1a1a1a;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.tsf-account__row.is-editing .tsf-account__value {
+  display: none;
+}
+
+.tsf-account__row.is-editing .tsf-account__input {
+  display: inline-block;
+}
+
+.tsf-account__actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tsf-account__button {
+  background: #3c0f1b;
+  color: #fff;
+  border: 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.tsf-account__message {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.tsf-account__message--success {
+  background: #e9f6ef;
+  color: #1f6b3a;
+  border: 1px solid #c9ead7;
+}
+
+.tsf-account__message--error {
+  background: #fdeeee;
+  color: #8a1c1c;
+  border: 1px solid #f4caca;
+}
+
+.tsf-account__actions[hidden] {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .tsf-account__title {
+    font-size: 32px;
+  }
+
+  .tsf-account__card {
+    padding: 20px;
+  }
+
+  .tsf-account__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tsf-account__value {
+    text-align: left;
+  }
+
+  .tsf-account__input {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .tsf-account__row {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .tsf-account__edit {
+    justify-self: flex-start;
+  }
+
+  .tsf-account__actions {
+    justify-content: stretch;
+  }
+
+  .tsf-account__button {
+    width: 100%;
+  }
+}

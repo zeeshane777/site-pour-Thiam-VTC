@@ -1,0 +1,159 @@
+/* ===== FOOTER (FIGMA EXACT) ===== */
+.tsf-footer{
+  background: #0F0F0F;
+  color: #FFF;
+  padding: 32px 16px; /* tu étais bon */
+}
+
+.tsf-footer__inner{
+  max-width: 1440px;
+  margin: 0 auto;
+
+  /* garde l’espace Figma sans casser sur petits écrans */
+  min-height: 648px;
+
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+/* Colonne gauche */
+.tsf-footer__left{
+  /* sur tes screens on voit un bloc gauche ~521px */
+  flex: 0 0 521px;
+  align-self: stretch;
+}
+
+.tsf-footer__title{
+  margin: 0;
+  color: #FFF;
+  font-family: Urbanist, system-ui, sans-serif;
+  font-size: 76px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 105.2%;
+}
+
+/* Colonne droite */
+.tsf-footer__right{
+  flex: 1;
+  align-self: stretch;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 780px;
+  margin-left: auto;
+  padding-top: 16px;
+}
+
+/* Sous-bloc (intro + divider + cols) */
+.tsf-footer__right > *{
+  width: 100%;
+}
+
+.tsf-footer__intro{
+  margin: 0;
+
+  color: #FFF;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* Divider */
+.tsf-footer__divider{
+  height: 1px;
+  background: rgba(255,255,255,0.35);
+  width: 100%;
+}
+
+/* 3 colonnes */
+.tsf-footer__cols{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 80px;
+}
+
+/* chaque colonne (Figma: width 205px + gap 10) */
+.tsf-footer__col{
+  width: 205px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* titres colonnes */
+.tsf-footer__h3{
+  margin: 0;
+  color: #FFF;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+/* textes */
+.tsf-footer__p{
+  margin: 0;
+  color: rgba(255,255,255,0.85);
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* espace vertical exact entre intro/divider/cols (Figma: gap 48) */
+.tsf-footer__right{
+  gap: 10px;
+}
+.tsf-footer__intro{
+  margin-bottom: 32px;
+}
+.tsf-footer__divider{
+  margin-bottom: 32px;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .tsf-footer__inner{
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .tsf-footer__left{
+    flex: initial;
+    width: 100%;
+  }
+
+  .tsf-footer__title{
+    font-size: 42px;
+  }
+
+  .tsf-footer__right{
+    max-width: 100%;
+    margin-left: 0;
+    padding-top: 16px;
+  }
+
+  .tsf-footer__intro{
+    font-size: 18px;
+  }
+
+  .tsf-footer__cols{
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .tsf-footer__col{
+    width: 100%;
+  }
+}
