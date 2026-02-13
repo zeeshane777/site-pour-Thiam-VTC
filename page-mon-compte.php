@@ -35,7 +35,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_account_nonce'])
   if ( empty($email) || ! is_email($email) ) {
     $errors[] = 'Adresse mail invalide.';
   } elseif ( $email !== $user->user_email && email_exists($email) ) {
-    $errors[] = 'Adresse mail deja utilisee.';
+    $errors[] = 'Adresse mail déjà utilisée.';
   }
 
   $first_name_value = $full_name_input;
@@ -58,7 +58,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_account_nonce'])
     }
     $result = wp_update_user($userdata);
     if ( is_wp_error($result) ) {
-      $message = 'Erreur lors de la mise a jour.';
+      $message = 'Erreur lors de la mise à jour.';
       $message_type = 'error';
     } else {
       update_user_meta($user->ID, 'phone', $phone);
@@ -71,7 +71,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_account_nonce'])
       $user = wp_get_current_user();
       $first_name = $user->first_name ? $user->first_name : $user->display_name;
       $full_name = trim($user->first_name . ' ' . $user->last_name);
-      $message = 'Informations mises a jour.';
+      $message = 'Informations mises à jour.';
       $message_type = 'success';
     }
   } else {
@@ -109,10 +109,10 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_account_nonce'])
             </div>
 
             <div class="tsf-account__row" data-field="phone">
-              <div class="tsf-account__label">Telephone portable</div>
+              <div class="tsf-account__label">Téléphone portable</div>
               <div class="tsf-account__value"><?php echo esc_html($phone ? $phone : '-'); ?></div>
               <input class="tsf-account__input" type="text" name="phone" value="<?php echo esc_attr($phone ? $phone : ''); ?>">
-              <button class="tsf-account__edit" type="button" aria-label="Modifier le telephone">✎</button>
+              <button class="tsf-account__edit" type="button" aria-label="Modifier le téléphone">✎</button>
             </div>
 
             <div class="tsf-account__row" data-field="company">

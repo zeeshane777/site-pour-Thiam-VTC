@@ -4,25 +4,27 @@ if ( ! defined('ABSPATH') ) {
 }
 
 function thiam_vtc_route_shortcode() {
+  $prefill_start = isset($_GET['start']) ? sanitize_text_field(wp_unslash($_GET['start'])) : '';
+  $prefill_end = isset($_GET['end']) ? sanitize_text_field(wp_unslash($_GET['end'])) : '';
   ob_start();
   ?>
   <div class="thiam-route">
     <div class="thiam-route__map" id="thiam-route-map" aria-label="Map"></div>
     <div class="thiam-route__panel">
       <div class="thiam-route__form" id="thiam-route-form">
-      <label class="thiam-route__label" for="thiam-route-start">Depart</label>
+      <label class="thiam-route__label" for="thiam-route-start">Départ</label>
       <div class="thiam-route__field">
-        <input id="thiam-route-start" type="text" placeholder="Votre adresse" autocomplete="off">
+        <input id="thiam-route-start" type="text" placeholder="Votre adresse" autocomplete="off" value="<?php echo esc_attr($prefill_start); ?>">
         <div class="thiam-route__suggestions" id="thiam-route-start-suggestions" role="listbox"></div>
       </div>
 
-      <label class="thiam-route__label" for="thiam-route-end">Arrivee</label>
+      <label class="thiam-route__label" for="thiam-route-end">Arrivée</label>
       <div class="thiam-route__field">
-        <input id="thiam-route-end" type="text" placeholder="Adresse de destination" autocomplete="off">
+        <input id="thiam-route-end" type="text" placeholder="Adresse de destination" autocomplete="off" value="<?php echo esc_attr($prefill_end); ?>">
         <div class="thiam-route__suggestions" id="thiam-route-end-suggestions" role="listbox"></div>
       </div>
 
-      <label class="thiam-route__label" for="thiam-route-time">Heure de depart</label>
+      <label class="thiam-route__label" for="thiam-route-time">Heure de départ</label>
       <input id="thiam-route-time" type="time">
 
       <label class="thiam-route__label" for="thiam-route-passengers">Nombre de passagers</label>
@@ -43,15 +45,15 @@ function thiam_vtc_route_shortcode() {
       </div>
       <div class="thiam-route__confirm" id="thiam-route-confirm" hidden>
         <div class="thiam-route__confirm-icon" aria-hidden="true">&#10003;</div>
-        <h3 class="thiam-route__confirm-title">Votre reservation a ete confirme</h3>
+        <h3 class="thiam-route__confirm-title">Votre réservation a été confirmée</h3>
         <p class="thiam-route__confirm-text">
-          Votre reservation a bien ete enregistree. Un message de confirmation
-          contenant tous les details de votre course vous sera envoye.
+          Votre réservation a bien été enregistrée. Un message de confirmation
+          contenant tous les détails de votre course vous sera envoyé.
         </p>
         <p class="thiam-route__confirm-text">
-          Vous pouvez egalement consulter vos reservations en cours dans la page reservations.
+          Vous pouvez également consulter vos reservations en cours dans la page Vos reservations.
         </p>
-        <a class="thiam-route__cta thiam-route__cta--confirm" href="<?php echo esc_url( home_url('/reservations/') ); ?>">Reservations</a>
+        <a class="thiam-route__cta thiam-route__cta--confirm" href="<?php echo esc_url( home_url('/reservations/') ); ?>">Vos reservations</a>
       </div>
     </div>
   </div>
@@ -197,7 +199,7 @@ function thiam_vtc_route_assets() {
     var lat = parseFloat(point.lat);
     var lon = parseFloat(point.lon);
     if (!idfBounds.contains([lat, lon])) {
-      metaEl.textContent = 'Adresse hors Ile-de-France.';
+      metaEl.textContent = 'Adresse hors Île-de-France.';
       return;
     }
     if (isStart) {
@@ -221,8 +223,46 @@ function thiam_vtc_route_assets() {
     fetchSuggestions(e.target.value, endSuggestions, function (item) { setPoint(item, false); });
   }, 300);
 
+  function fetchFirstSuggestion(query, onSelect) {
+    if (!query || query.length < 3) {
+      return;
+    }
+    var viewbox = '1.4460,49.2500,3.5600,48.1200';
+    var url = window.THIA_ROUTE_CONFIG.nominatim +
+      '?format=jsonv2&addressdetails=1&limit=5&bounded=1&viewbox=' + viewbox +
+      '&countrycodes=fr&accept-language=fr&dedupe=1' +
+      '&q=' + encodeURIComponent(query);
+    fetch(url, { headers: { 'Accept': 'application/json' } })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var items = Array.isArray(data) ? orderSuggestions(data) : [];
+        if (items.length) {
+          onSelect(items[0]);
+        }
+      })
+      .catch(function () {});
+  }
+
+  function prefillFromQuery() {
+    if (!window.URLSearchParams) {
+      return;
+    }
+    var params = new URLSearchParams(window.location.search);
+    var startQ = params.get('start');
+    var endQ = params.get('end');
+    if (startQ) {
+      startInput.value = startQ;
+      fetchFirstSuggestion(startQ, function (item) { setPoint(item, true); });
+    }
+    if (endQ) {
+      endInput.value = endQ;
+      fetchFirstSuggestion(endQ, function (item) { setPoint(item, false); });
+    }
+  }
+
   startInput.addEventListener('input', onStartInput);
   endInput.addEventListener('input', onEndInput);
+  prefillFromQuery();
 
   var ctaEl = document.getElementById('thiam-route-cta');
   var confirmEl = document.getElementById('thiam-route-confirm');
@@ -239,7 +279,7 @@ function thiam_vtc_route_assets() {
       }
       var departTime = document.getElementById('thiam-route-time').value;
       if (!departTime) {
-        metaEl.textContent = 'Merci de choisir une heure de depart.';
+        metaEl.textContent = 'Merci de choisir une heure de départ.';
         return;
       }
       var passengers = document.getElementById('thiam-route-passengers').value;
@@ -262,14 +302,14 @@ function thiam_vtc_route_assets() {
         .then(function (res) { return res.json(); })
         .then(function (data) {
           if (!data || !data.success) {
-            metaEl.textContent = data && data.data ? data.data : 'Erreur lors de la reservation.';
+            metaEl.textContent = data && data.data ? data.data : 'Erreur lors de la réservation.';
             return;
           }
           formEl.hidden = true;
           confirmEl.hidden = false;
         })
         .catch(function () {
-          metaEl.textContent = 'Erreur lors de la reservation.';
+          metaEl.textContent = 'Erreur lors de la réservation.';
         });
     });
   }
@@ -286,7 +326,7 @@ function thiam_vtc_route_assets() {
       .then(function (res) { return res.json(); })
       .then(function (data) {
         if (!data.routes || !data.routes.length) {
-          metaEl.textContent = 'Aucun trajet trouve.';
+          metaEl.textContent = 'Aucun trajet trouvé.';
           return;
         }
         var route = data.routes[0];

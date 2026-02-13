@@ -258,3 +258,75 @@
   display: block;
 }
 
+/* =========================
+   MOBILE
+   ========================= */
+@media (max-width: 640px){
+  .tsf-register{
+    min-height: auto;
+    padding: 28px 10px 36px;
+  }
+
+  .tsf-register__card{
+    max-width: 100%;
+  }
+
+  .tsf-register__title{
+    font-size: 34px;
+    margin-bottom: 14px;
+  }
+
+  .tsf-register__form{
+    gap: 10px;
+  }
+
+  .tsf-field-inline{
+    width: 100%;
+    height: 54px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    gap: 8px;
+  }
+
+  .tsf-inline-label{
+    font-size: 15px;
+  }
+
+  .tsf-inline-input{
+    font-size: 16px;
+    text-align: left;
+  }
+
+  .tsf-inline-input::placeholder{
+    text-align: left;
+  }
+
+  .tsf-inline-input--tel{
+    padding-right: 76px;
+  }
+
+  .tsf-flag{
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  .tsf-register__btn{
+    width: 100%;
+    height: 52px;
+    border-radius: 12px;
+  }
+
+  .tsf-register__sep{
+    width: 100%;
+  }
+
+  .tsf-social{
+    width: 100%;
+    height: 48px;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+}
+

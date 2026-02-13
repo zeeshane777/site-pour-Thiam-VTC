@@ -13,7 +13,7 @@ if ( ! defined('ABSPATH') ) {
 function thiam_vtc_register_reservations() {
   register_post_type('thiam_reservation', [
     'labels' => [
-      'name' => 'Reservations',
+      'name' => 'Vos reservations',
       'singular_name' => 'Reservation',
     ],
     'public' => false,
@@ -159,7 +159,7 @@ function thiam_vtc_create_reservation() {
   $client_email = $user && $user->user_email ? $user->user_email : '';
   $admin_email = get_option('admin_email');
   $common_lines = [
-    'Reservation confirme.',
+    'Reservation confirmee.',
     'Depart: ' . $start_address,
     'Arrivee: ' . $end_address,
     'Heure de depart: ' . $departure_dt->format('H:i'),

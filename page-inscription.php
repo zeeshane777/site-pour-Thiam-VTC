@@ -154,10 +154,10 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_register_submit'
 
       <label class="tsf-register__checkbox">
         <input type="checkbox" id="tsf_toggle_password_register">
-        <span>Affichez le mot de passe</span>
+        <span>Afficher le mot de passe</span>
       </label>
 
-      <button class="tsf-register__btn" type="submit" name="tsf_register_submit" value="1">Continuez</button>
+      <button class="tsf-register__btn" type="submit" name="tsf_register_submit" value="1">Continuer</button>
 
       <p class="tsf-register__foot">
         Vous avez déjà un compte ?
@@ -170,7 +170,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_register_submit'
 
       <a class="tsf-social" href="<?php echo esc_url( thiam_google_login_url() ); ?>" role="button">
         <img src="<?php echo esc_url( thiam_asset_url('google.png') ); ?>" alt="Google" class="tsf-social__icon">
-        <span>Continuez avec Google</span>
+        <span>Continuer avec Google</span>
       </a>
 
     </form>

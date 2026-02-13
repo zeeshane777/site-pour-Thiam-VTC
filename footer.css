@@ -1,31 +1,36 @@
 /* ===== FOOTER (FIGMA EXACT) ===== */
 .tsf-footer{
-  background: #0F0F0F;
+  background: #141414;
   color: #FFF;
-  padding: 32px 16px; /* tu étais bon */
+  padding: 32px 24px;
 }
 
 .tsf-footer__inner{
-  max-width: 1440px;
+  width: 1440px;
+  max-width: 100%;
   margin: 0 auto;
+  padding: 0;
+  background: transparent;
 
-  /* garde l’espace Figma sans casser sur petits écrans */
-  min-height: 648px;
+  /* garde lâ€™espace Figma sans casser sur petits Ã©crans */
+  height: auto;
 
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  display: block;
 }
 
 /* Colonne gauche */
 .tsf-footer__left{
   /* sur tes screens on voit un bloc gauche ~521px */
-  flex: 0 0 521px;
-  align-self: stretch;
+  width: 100%;
+  flex: initial;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  align-self: auto;
 }
 
 .tsf-footer__title{
-  margin: 0;
+  margin: 30px 0 0;
   color: #FFF;
   font-family: Urbanist, system-ui, sans-serif;
   font-size: 76px;
@@ -36,16 +41,18 @@
 
 /* Colonne droite */
 .tsf-footer__right{
-  flex: 1;
-  align-self: stretch;
+  width: 100%;
+  flex: initial;
+  align-self: auto;
 
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 10px;
-  max-width: 780px;
-  margin-left: auto;
-  padding-top: 16px;
+  gap: 0;
+  max-width: none;
+  margin-left: 0;
+  padding-top: 0;
 }
 
 /* Sous-bloc (intro + divider + cols) */
@@ -55,10 +62,12 @@
 
 .tsf-footer__intro{
   margin: 0;
+  align-self: stretch;
+  max-width: 521px;
 
   color: #FFF;
   font-family: Satoshi, system-ui, sans-serif;
-  font-size: 32px;
+  font-size: 28px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -66,27 +75,44 @@
 
 /* Divider */
 .tsf-footer__divider{
-  height: 1px;
-  background: rgba(255,255,255,0.35);
+  height: 2px;
+  align-self: stretch;
+  background: var(--DB-Primary, #F9F7F2);
   width: 100%;
+  margin-left: 0;
 }
 
 /* 3 colonnes */
 .tsf-footer__cols{
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
-  gap: 80px;
+  width: 100%;
+  margin-left: 0;
+  gap: 50px;
 }
 
 /* chaque colonne (Figma: width 205px + gap 10) */
 .tsf-footer__col{
-  width: 205px;
+  width: auto;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
+}
+
+.tsf-footer__col:nth-child(1){
+  order: 1;
+}
+
+.tsf-footer__col:nth-child(2){
+  order: 2;
+}
+
+.tsf-footer__col:nth-child(3){
+  order: 3;
 }
 
 /* titres colonnes */
@@ -94,32 +120,36 @@
   margin: 0;
   color: #FFF;
   font-family: Satoshi, system-ui, sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: normal;
+}
+
+.tsf-footer__intro-line{
+  white-space: nowrap;
 }
 
 /* textes */
 .tsf-footer__p{
   margin: 0;
-  color: rgba(255,255,255,0.85);
+  color: #FFF;
   font-family: Satoshi, system-ui, sans-serif;
-  font-size: 14px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: normal;
 }
 
 /* espace vertical exact entre intro/divider/cols (Figma: gap 48) */
 .tsf-footer__right{
-  gap: 10px;
+  gap: 0;
 }
 .tsf-footer__intro{
-  margin-bottom: 32px;
+  margin-bottom: 48px;
 }
 .tsf-footer__divider{
-  margin-bottom: 32px;
+  margin-bottom: 48px;
 }
 
 /* Responsive */
@@ -148,12 +178,30 @@
     font-size: 18px;
   }
 
+  .tsf-footer__intro-line{
+    white-space: normal;
+  }
+
   .tsf-footer__cols{
+    display: flex;
+    width: 100%;
+    margin-left: 0;
     flex-direction: column;
     gap: 24px;
   }
 
+  .tsf-footer__divider{
+    width: 100%;
+    margin-left: 0;
+  }
+
   .tsf-footer__col{
     width: 100%;
+  }
+
+  .tsf-footer__col:nth-child(1),
+  .tsf-footer__col:nth-child(2),
+  .tsf-footer__col:nth-child(3){
+    order: initial;
   }
 }

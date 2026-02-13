@@ -6,8 +6,8 @@ if ( ! defined('ABSPATH') ) {
 function thiam_vtc_register_reservations() {
   register_post_type('thiam_reservation', [
     'labels' => [
-      'name' => 'Reservations',
-      'singular_name' => 'Reservation',
+      'name' => 'Réservations',
+      'singular_name' => 'Réservation',
     ],
     'public' => false,
     'show_ui' => true,
@@ -19,25 +19,27 @@ function thiam_vtc_register_reservations() {
 add_action('init', 'thiam_vtc_register_reservations');
 
 function thiam_vtc_route_shortcode() {
+  $prefill_start = isset($_GET['start']) ? sanitize_text_field(wp_unslash($_GET['start'])) : '';
+  $prefill_end = isset($_GET['end']) ? sanitize_text_field(wp_unslash($_GET['end'])) : '';
   ob_start();
   ?>
   <div class="thiam-route">
     <div class="thiam-route__map" id="thiam-route-map" aria-label="Map"></div>
     <div class="thiam-route__panel">
       <div class="thiam-route__form" id="thiam-route-form">
-      <label class="thiam-route__label" for="thiam-route-start">Depart</label>
+      <label class="thiam-route__label" for="thiam-route-start">Départ</label>
       <div class="thiam-route__field">
-        <input id="thiam-route-start" type="text" placeholder="Votre adresse" autocomplete="off">
+        <input id="thiam-route-start" type="text" placeholder="Votre adresse" autocomplete="off" value="<?php echo esc_attr($prefill_start); ?>">
         <div class="thiam-route__suggestions" id="thiam-route-start-suggestions" role="listbox"></div>
       </div>
 
-      <label class="thiam-route__label" for="thiam-route-end">Arrivee</label>
+      <label class="thiam-route__label" for="thiam-route-end">Arrivée</label>
       <div class="thiam-route__field">
-        <input id="thiam-route-end" type="text" placeholder="Adresse de destination" autocomplete="off">
+        <input id="thiam-route-end" type="text" placeholder="Adresse de destination" autocomplete="off" value="<?php echo esc_attr($prefill_end); ?>">
         <div class="thiam-route__suggestions" id="thiam-route-end-suggestions" role="listbox"></div>
       </div>
 
-      <label class="thiam-route__label" for="thiam-route-time">Heure de depart</label>
+      <label class="thiam-route__label" for="thiam-route-time">Heure de départ</label>
       <input id="thiam-route-time" type="time">
 
       <label class="thiam-route__label" for="thiam-route-passengers">Nombre de passagers</label>
@@ -58,15 +60,15 @@ function thiam_vtc_route_shortcode() {
       </div>
       <div class="thiam-route__confirm" id="thiam-route-confirm" hidden>
         <div class="thiam-route__confirm-icon" aria-hidden="true">&#10003;</div>
-        <h3 class="thiam-route__confirm-title">Votre reservation a ete confirme</h3>
+        <h3 class="thiam-route__confirm-title">Votre réservation a été confirmée</h3>
         <p class="thiam-route__confirm-text">
-          Votre reservation a bien ete enregistree. Un message de confirmation
-          contenant tous les details de votre course vous sera envoye.
+          Votre réservation a bien été enregistrée. Un message de confirmation
+          contenant tous les détails de votre course vous sera envoyé.
         </p>
         <p class="thiam-route__confirm-text">
-          Vous pouvez egalement consulter vos reservations en cours dans la page reservations.
+          Vous pouvez également consulter vos réservations en cours dans la page Réservations.
         </p>
-        <a class="thiam-route__cta thiam-route__cta--confirm" href="<?php echo esc_url( home_url('/reservations/') ); ?>">Reservations</a>
+        <a class="thiam-route__cta thiam-route__cta--confirm" href="<?php echo esc_url( home_url('/reservations/') ); ?>">Réservations</a>
       </div>
     </div>
   </div>
@@ -79,72 +81,141 @@ function thiam_vtc_airport_markup($mode) {
   $allow_toggle = $mode === 'toggle';
   $mode = $mode === 'retrait' ? 'retrait' : 'depot';
   $address_label = $mode === 'retrait' ? 'Adresse de destination' : 'Adresse de depart';
+  $show_reservation = isset($_GET['reservation']) && $_GET['reservation'] === '1';
+
+  $hero_img = thiam_asset_url('photo avion aeroport.webp');
+  $img2 = thiam_asset_url('Merco avant.webp');
+  $img3 = thiam_asset_url('aeroportA.webp');
+  $img4 = '';
+  $reserve_url = add_query_arg('reservation', '1', get_permalink());
+  $reserve_url = $reserve_url . '#reservation-map';
+
   ob_start();
   ?>
-  <div class="thiam-airport" data-mode="<?php echo esc_attr($mode); ?>" data-toggle="<?php echo $allow_toggle ? '1' : '0'; ?>">
-    <div class="thiam-route">
-      <div class="thiam-airport__map-wrap">
-        <?php if ( $allow_toggle ) : ?>
-          <div class="thiam-airport__tabs" role="tablist" aria-label="Type de trajet">
-            <button class="thiam-airport__tab is-active" type="button" data-mode="depot" role="tab" aria-selected="true">Depot</button>
-            <button class="thiam-airport__tab" type="button" data-mode="retrait" role="tab" aria-selected="false">Retrait</button>
-          </div>
-        <?php endif; ?>
-        <div class="thiam-route__map" id="thiam-airport-map" aria-label="Map"></div>
-      </div>
-      <div class="thiam-route__panel">
-        <div class="thiam-route__form" id="thiam-airport-form">
-          <label class="thiam-route__label" for="thiam-airport-select">Votre aeroport</label>
-          <select id="thiam-airport-select">
-            <option value="cdg">Charles de Gaulle (CDG)</option>
-            <option value="ory">Orly (ORY)</option>
-          </select>
+  <?php if ( ! $show_reservation ) : ?>
+    <div class="aero-landing">
+      <section class="aero-hero" style="--aero-hero: url('<?php echo esc_url($hero_img); ?>');">
+        <div class="aero-hero__label">Transfert a&eacute;roport</div>
+        <a class="aero-hero__cta" href="<?php echo esc_url($reserve_url); ?>">R&eacute;server</a>
+      </section>
 
-          <label class="thiam-route__label" for="thiam-airport-flight">Numero de vol</label>
-          <div class="thiam-route__field">
-            <input id="thiam-airport-flight" type="text" placeholder="Votre numero">
-          </div>
+      <section class="aero-mini-grid">
+        <a class="aero-mini-card" href="#reservoir" aria-label="Reservoir">
+          <div class="aero-mini-card__icon">⛽</div>
+          <h3 class="aero-mini-card__title">Reservoir</h3>
+          <p class="aero-mini-card__text">Informations sur l&rsquo;autonomie / carburant.</p>
+        </a>
 
-          <label class="thiam-route__label" id="thiam-airport-address-label" for="thiam-airport-address"><?php echo esc_html($address_label); ?></label>
-          <div class="thiam-route__field">
-            <input id="thiam-airport-address" type="text" placeholder="Votre adresse" autocomplete="off">
-            <div class="thiam-route__suggestions" id="thiam-airport-address-suggestions" role="listbox"></div>
-          </div>
+        <a class="aero-mini-card" href="#coffre" aria-label="Volume du coffre">
+          <div class="aero-mini-card__icon">🧳</div>
+          <h3 class="aero-mini-card__title">Volume du coffre</h3>
+          <p class="aero-mini-card__text">Capacite bagages selon vos besoins.</p>
+        </a>
 
-          <label class="thiam-route__label" for="thiam-airport-time">Heure de ramassage</label>
-          <input id="thiam-airport-time" type="time">
+        <a class="aero-mini-card" href="#sieges" aria-label="Sieges">
+          <div class="aero-mini-card__icon">❤</div>
+          <h3 class="aero-mini-card__title">Sieges</h3>
+          <p class="aero-mini-card__text">Confort et places disponibles.</p>
+        </a>
+      </section>
 
-          <label class="thiam-route__label" for="thiam-airport-passengers">Nombre de passagers</label>
-          <select id="thiam-airport-passengers">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
+      <section class="aero-content-grid">
+        <div class="aero-col">
+          <article class="aero-text-block" id="reservoir">
+            <h2>UN TRANSFERT AEROPORT ADAPTE A VOS BESOINS</h2>
+            <p>Texte de presentation... (a remplacer).</p>
+          </article>
 
-          <div class="thiam-route__total">
-            <span>Total</span>
-            <strong id="thiam-airport-price">-- EUR</strong>
-          </div>
-
-          <button class="thiam-route__cta" id="thiam-airport-cta" type="button">Reserver</button>
-          <div class="thiam-route__meta" id="thiam-airport-meta"></div>
+          <figure class="aero-img-3">
+            <img src="<?php echo esc_url($img3); ?>" alt="">
+          </figure>
         </div>
-        <div class="thiam-route__confirm" id="thiam-airport-confirm" hidden>
-          <div class="thiam-route__confirm-icon" aria-hidden="true">&#10003;</div>
-          <h3 class="thiam-route__confirm-title">Votre reservation a ete confirme</h3>
-          <p class="thiam-route__confirm-text">
-            Votre reservation a bien ete enregistree. Un message de confirmation
-            contenant tous les details de votre course vous sera envoye.
-          </p>
-          <p class="thiam-route__confirm-text">
-            Vous pouvez egalement consulter vos reservations en cours dans la page reservations.
-          </p>
-          <a class="thiam-route__cta thiam-route__cta--confirm" href="<?php echo esc_url( home_url('/reservations/') ); ?>">Reservations</a>
+
+        <div class="aero-col">
+          <a class="aero-img-card aero-img-card--2" href="#coffre" style="--bg: url('<?php echo esc_url($img2); ?>');">
+            <span class="aero-badge">1801</span>
+          </a>
+
+          <article class="aero-text-block" id="coffre">
+            <h2>UNE SOLUTION SIMPLE POUR VOS DEPLACEMENTS</h2>
+            <p>Texte de presentation... (a remplacer).</p>
+            <span class="aero-badge aero-badge--inline">704</span>
+          </article>
+
+          <a class="aero-img-card aero-img-card--4" href="#sieges" <?php echo $img4 ? 'style="--bg: url(\'' . esc_url($img4) . '\');"' : ''; ?>></a>
+        </div>
+      </section>
+
+      <div class="aero-reserver">
+        <a class="aero-reserver__btn" href="<?php echo esc_url($reserve_url); ?>">Reserver</a>
+      </div>
+    </div>
+  <?php else : ?>
+    <div class="thiam-airport" id="reservation-map" data-mode="<?php echo esc_attr($mode); ?>" data-toggle="<?php echo $allow_toggle ? '1' : '0'; ?>">
+      <div class="thiam-route">
+        <div class="thiam-airport__map-wrap">
+          <?php if ( $allow_toggle ) : ?>
+            <div class="thiam-airport__tabs" role="tablist" aria-label="Type de trajet">
+              <button class="thiam-airport__tab is-active" type="button" data-mode="depot" role="tab" aria-selected="true">Depot</button>
+              <button class="thiam-airport__tab" type="button" data-mode="retrait" role="tab" aria-selected="false">Retrait</button>
+            </div>
+          <?php endif; ?>
+          <div class="thiam-route__map" id="thiam-airport-map" aria-label="Map"></div>
+        </div>
+        <div class="thiam-route__panel">
+          <div class="thiam-route__form" id="thiam-airport-form">
+            <label class="thiam-route__label" for="thiam-airport-select">Votre aeroport</label>
+            <select id="thiam-airport-select">
+              <option value="cdg">Charles de Gaulle (CDG)</option>
+              <option value="ory">Orly (ORY)</option>
+            </select>
+
+            <label class="thiam-route__label" for="thiam-airport-flight">Numero de vol</label>
+            <div class="thiam-route__field">
+              <input id="thiam-airport-flight" type="text" placeholder="Votre numero">
+            </div>
+
+            <label class="thiam-route__label" id="thiam-airport-address-label" for="thiam-airport-address"><?php echo esc_html($address_label); ?></label>
+            <div class="thiam-route__field">
+              <input id="thiam-airport-address" type="text" placeholder="Votre adresse" autocomplete="off">
+              <div class="thiam-route__suggestions" id="thiam-airport-address-suggestions" role="listbox"></div>
+            </div>
+
+            <label class="thiam-route__label" for="thiam-airport-time">Heure de ramassage</label>
+            <input id="thiam-airport-time" type="time">
+
+            <label class="thiam-route__label" for="thiam-airport-passengers">Nombre de passagers</label>
+            <select id="thiam-airport-passengers">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+
+            <div class="thiam-route__total">
+              <span>Total</span>
+              <strong id="thiam-airport-price">-- EUR</strong>
+            </div>
+
+            <button class="thiam-route__cta" id="thiam-airport-cta" type="button">Reserver</button>
+            <div class="thiam-route__meta" id="thiam-airport-meta"></div>
+          </div>
+          <div class="thiam-route__confirm" id="thiam-airport-confirm" hidden>
+            <div class="thiam-route__confirm-icon" aria-hidden="true">&#10003;</div>
+            <h3 class="thiam-route__confirm-title">Votre reservation a ete confirmee</h3>
+            <p class="thiam-route__confirm-text">
+              Votre reservation a bien ete enregistree. Un message de confirmation
+              contenant tous les details de votre course vous sera envoye.
+            </p>
+            <p class="thiam-route__confirm-text">
+              Vous pouvez egalement consulter vos reservations en cours dans la page Reservations.
+            </p>
+            <a class="thiam-route__cta thiam-route__cta--confirm" href="<?php echo esc_url( home_url('/reservations/') ); ?>">Reservations</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <?php endif; ?>
   <?php
   return ob_get_clean();
 }
@@ -153,6 +224,16 @@ function thiam_vtc_airport_shortcode() {
   return thiam_vtc_airport_markup('toggle');
 }
 add_shortcode('thiam_vtc_aeroport', 'thiam_vtc_airport_shortcode');
+
+add_filter('the_content', function ($content) {
+  if ( is_admin() ) {
+    return $content;
+  }
+  if ( ! is_page('depose-aeroport') && ! is_page_template('page-depose-aeroport.php') ) {
+    return $content;
+  }
+  return do_shortcode('[thiam_vtc_aeroport]');
+}, 20);
 
 function thiam_vtc_airport_depot_shortcode() {
   return thiam_vtc_airport_markup('depot');
@@ -166,7 +247,19 @@ add_shortcode('thiam_vtc_aeroport_retrait', 'thiam_vtc_airport_retrait_shortcode
 
 function thiam_vtc_route_assets() {
   global $post;
-  if ( ! $post || ( ! has_shortcode($post->post_content, 'thiam_vtc_route') && ! has_shortcode($post->post_content, 'thiam_vtc_aeroport') && ! has_shortcode($post->post_content, 'thiam_vtc_aeroport_depot') && ! has_shortcode($post->post_content, 'thiam_vtc_aeroport_retrait') ) ) {
+
+  $is_airport_page = is_page('depose-aeroport') || is_page_template('page-depose-aeroport.php');
+
+  $has_shortcode = $post && (
+    has_shortcode($post->post_content, 'thiam_vtc_route')
+    || has_shortcode($post->post_content, 'thiam_vtc_aeroport')
+    || has_shortcode($post->post_content, 'thiam_vtc_aeroport_depot')
+    || has_shortcode($post->post_content, 'thiam_vtc_aeroport_retrait')
+  );
+
+  $show_reservation = $is_airport_page && isset($_GET['reservation']) && $_GET['reservation'] === '1';
+
+  if ( ! $has_shortcode && ! $show_reservation ) {
     return;
   }
 
@@ -349,6 +442,43 @@ function thiam_vtc_route_assets() {
       .catch(function () { clearSuggestions(listEl); });
   }
 
+  function fetchFirstSuggestion(query, onSelect) {
+    if (!query || query.length < 3) {
+      return;
+    }
+    var viewbox = '1.4460,49.2500,3.5600,48.1200';
+    var url = window.THIA_ROUTE_CONFIG.nominatim +
+      '?format=jsonv2&addressdetails=1&limit=5&bounded=1&viewbox=' + viewbox +
+      '&countrycodes=fr&accept-language=fr&dedupe=1' +
+      '&q=' + encodeURIComponent(query);
+    fetch(url, { headers: { 'Accept': 'application/json' } })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var items = Array.isArray(data) ? orderSuggestions(data) : [];
+        if (items.length) {
+          onSelect(items[0]);
+        }
+      })
+      .catch(function () {});
+  }
+
+  function prefillFromQuery() {
+    if (!window.URLSearchParams) {
+      return;
+    }
+    var params = new URLSearchParams(window.location.search);
+    var startQ = params.get('start');
+    var endQ = params.get('end');
+    if (startQ) {
+      startInput.value = startQ;
+      fetchFirstSuggestion(startQ, function (item) { setPoint(item, true); });
+    }
+    if (endQ) {
+      endInput.value = endQ;
+      fetchFirstSuggestion(endQ, function (item) { setPoint(item, false); });
+    }
+  }
+
   function setPoint(point, isStart) {
     var lat = parseFloat(point.lat);
     var lon = parseFloat(point.lon);
@@ -379,6 +509,7 @@ function thiam_vtc_route_assets() {
 
   startInput.addEventListener('input', onStartInput);
   endInput.addEventListener('input', onEndInput);
+  prefillFromQuery();
 
   var ctaEl = document.getElementById('thiam-route-cta');
   var confirmEl = document.getElementById('thiam-route-confirm');
@@ -429,7 +560,6 @@ function thiam_vtc_route_assets() {
         });
     });
   }
-
 
   function tryRoute() {
     if (!startPoint || !endPoint) {
@@ -518,6 +648,13 @@ function thiam_vtc_route_assets() {
   var addressPoint = null;
   var routeLayer = null;
   var tabs = wrapperEl ? wrapperEl.querySelectorAll('.thiam-airport__tab') : null;
+
+  if (airportSelect && window.URLSearchParams) {
+    var airportParam = new URLSearchParams(window.location.search).get('airport');
+    if (airportParam && airports[airportParam]) {
+      airportSelect.value = airportParam;
+    }
+  }
 
   function setMode(nextMode) {
     if (nextMode !== 'retrait') {
@@ -763,7 +900,7 @@ function thiam_vtc_create_reservation() {
     wp_send_json_error('Connexion requise.');
   }
   if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'thiam_vtc_reservation') ) {
-    wp_send_json_error('Requete invalide.');
+    wp_send_json_error('Requête invalide.');
   }
 
   $start_address = isset($_POST['start_address']) ? sanitize_text_field(wp_unslash($_POST['start_address'])) : '';
@@ -802,12 +939,12 @@ function thiam_vtc_create_reservation() {
   $post_id = wp_insert_post([
     'post_type' => 'thiam_reservation',
     'post_status' => 'publish',
-    'post_title' => 'Reservation ' . $now->format('Y-m-d H:i'),
+    'post_title' => 'Réservation ' . $now->format('Y-m-d H:i'),
     'post_author' => get_current_user_id(),
   ], true);
 
   if ( is_wp_error($post_id) ) {
-    wp_send_json_error('Erreur lors de la creation.');
+    wp_send_json_error('Erreur lors de la création.');
   }
 
   update_post_meta($post_id, 'thiam_start_address', $start_address);
@@ -830,21 +967,21 @@ function thiam_vtc_create_reservation() {
   $client_email = $user && $user->user_email ? $user->user_email : '';
   $admin_email = get_option('admin_email');
   $common_lines = [
-    'Reservation confirme.',
-    'Depart: ' . $start_address,
-    'Arrivee: ' . $end_address,
-    'Heure de depart: ' . $departure_dt->format('H:i'),
-    'Heure d\'arrivee: ' . $arrival_dt->format('H:i'),
+    'Réservation confirmée.',
+    'Départ: ' . $start_address,
+    'Arrivée: ' . $end_address,
+    'Heure de départ: ' . $departure_dt->format('H:i'),
+    'Heure d\'arrivée: ' . $arrival_dt->format('H:i'),
     'Passagers: ' . $passengers,
     'Distance (km): ' . number_format($distance_km, 2),
     'Prix (EUR): ' . number_format($price_eur, 2),
   ];
   $message = implode("\n", $common_lines);
   if ( $client_email ) {
-    wp_mail($client_email, 'Confirmation de votre reservation VTC', $message);
+    wp_mail($client_email, 'Confirmation de votre réservation VTC', $message);
   }
   if ( $admin_email ) {
-    wp_mail($admin_email, 'Nouvelle reservation VTC', $message);
+    wp_mail($admin_email, 'Nouvelle réservation VTC', $message);
   }
 
   wp_send_json_success(['id' => $post_id]);
@@ -856,15 +993,15 @@ function thiam_vtc_cancel_reservation() {
     wp_send_json_error('Connexion requise.');
   }
   if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'thiam_vtc_reservation') ) {
-    wp_send_json_error('Requete invalide.');
+    wp_send_json_error('Requête invalide.');
   }
   $reservation_id = isset($_POST['reservation_id']) ? absint($_POST['reservation_id']) : 0;
   if ( ! $reservation_id ) {
-    wp_send_json_error('Reservation invalide.');
+    wp_send_json_error('Réservation invalide.');
   }
   $post = get_post($reservation_id);
   if ( ! $post || $post->post_type !== 'thiam_reservation' || (int) $post->post_author !== get_current_user_id() ) {
-    wp_send_json_error('Acces refuse.');
+    wp_send_json_error('Accès refusé.');
   }
   wp_trash_post($reservation_id);
   wp_send_json_success();

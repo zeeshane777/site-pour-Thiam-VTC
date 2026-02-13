@@ -186,13 +186,19 @@ function thiam_vtc_assets() {
     'thiam-style',
     get_stylesheet_uri(),
     ['thiam-urbanist'],
-    '1.0'
+    filemtime(get_stylesheet_directory() . '/style.css')
   );
   wp_enqueue_style(
     'thiam-header',
     get_template_directory_uri() . '/header.css',
     ['thiam-style'],
-    '1.0'
+    filemtime(get_template_directory() . '/header.css')
+  );
+  wp_enqueue_style(
+    'thiam-footer',
+    get_template_directory_uri() . '/footer.css',
+    ['thiam-header'],
+    filemtime(get_template_directory() . '/footer.css')
   );
 
   // JS principal du thÃƒÆ’Ã‚Â¨me
@@ -200,7 +206,7 @@ function thiam_vtc_assets() {
     'thiam-js',
     get_template_directory_uri() . '/js/main.js',
     [],
-    '1.0',
+    filemtime(get_template_directory() . '/js/main.js'),
     true
   );
 
@@ -312,3 +318,49 @@ add_action('after_setup_theme', function () {
     'primary' => 'Menu principal',
   ]);
 });
+
+add_filter('template_include', function ($template) {
+  if ( is_page('depose-aeroport') ) {
+    $custom = get_template_directory() . '/page-depose-aeroport.php';
+    if ( file_exists($custom) ) {
+      return $custom;
+    }
+  }
+  if ( is_page('trajet-en-ville') ) {
+    $custom = get_template_directory() . '/page-trajet-en-ville.php';
+    if ( file_exists($custom) ) {
+      return $custom;
+    }
+  }
+  if ( is_page('parcours-touristique') ) {
+    $custom = get_template_directory() . '/page-parcours-touristique.php';
+    if ( file_exists($custom) ) {
+      return $custom;
+    }
+  }
+  if ( is_page('reservation-aeroport') ) {
+    $custom = get_template_directory() . '/page-reservation-aeroport.php';
+    if ( file_exists($custom) ) {
+      return $custom;
+    }
+  }
+  if ( is_page(['reservations', 'reservation', 'Vos reservations', 'R�servations', 'Reservations']) ) {
+    $custom = get_template_directory() . '/page-reservations.php';
+    if ( file_exists($custom) ) {
+      return $custom;
+    }
+  }
+  return $template;
+}, 50);
+
+
+// Force reservation template as fallback if another filter overrides template_include.
+add_filter('template_include', function ($template) {
+  if ( is_page('reservation-aeroport') ) {
+    $custom = get_template_directory() . '/page-reservation-aeroport.php';
+    if ( file_exists($custom) ) {
+      return $custom;
+    }
+  }
+  return $template;
+}, 999);

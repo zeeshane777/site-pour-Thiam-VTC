@@ -239,3 +239,64 @@
   display: block;
 }
 
+/* =========================
+   MOBILE
+   ========================= */
+@media (max-width: 640px){
+  .tsf-login-page{
+    min-height: auto;
+    padding: 28px 10px 36px;
+  }
+
+  .tsf-login-card{
+    max-width: 100%;
+  }
+
+  .tsf-login-title{
+    font-size: 34px;
+    margin-bottom: 14px;
+  }
+
+  .tsf-login-form{
+    gap: 10px;
+  }
+
+  .tsf-field-inline{
+    width: 100%;
+    height: 54px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    gap: 8px;
+  }
+
+  .tsf-inline-label{
+    font-size: 15px;
+  }
+
+  .tsf-inline-input{
+    font-size: 16px;
+    text-align: left;
+  }
+
+  .tsf-inline-input::placeholder{
+    text-align: left;
+  }
+
+  .tsf-btn-primary{
+    width: 100%;
+    height: 52px;
+    border-radius: 12px;
+  }
+
+  .tsf-separator{
+    width: 100%;
+  }
+
+  .tsf-btn-social{
+    width: 100%;
+    height: 48px;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+}
+

@@ -148,6 +148,10 @@
 }
 
 @media (max-width: 700px) {
+  .tsf-account {
+    padding: 40px 12px 64px;
+  }
+
   .tsf-account__title {
     font-size: 32px;
   }

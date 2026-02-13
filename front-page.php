@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <main>
-  <section class="hero">
+  <section class="hero parallax-zoom">
     <div class="hero__content">
       <h1 class="hero__title">
         Votre prochain trajet<br>
@@ -12,7 +12,8 @@
 
   <div class="home-gap">
     <div class="home-gap__inner">
-      <form class="hero-form">
+      <form class="hero-form" id="hero-form" action="<?php echo esc_url( home_url('/trajet-en-ville/') ); ?>" method="get">
+        <input type="hidden" name="reservation" value="1">
         <h2>Où allons-nous ?</h2>
 
         <div class="hero-form__addresses">
@@ -21,7 +22,9 @@
           <div class="field">
             <span class="field__tag">Départ</span>
 
-            <input type="text" placeholder="Adresse, gare, aéroport">
+            <input type="text" id="hero-start" name="start" placeholder="Adresse, gare, aéroport" autocomplete="off">
+
+            <div class="hero-suggestions" id="hero-start-suggestions" role="listbox"></div>
 
             <span class="field__icon" aria-hidden="true">
               <!-- Pin -->
@@ -36,7 +39,9 @@
           <div class="field">
             <span class="field__tag">Arrivée</span>
 
-            <input type="text" placeholder="Adresse de destination">
+            <input type="text" id="hero-end" name="end" placeholder="Adresse de destination" autocomplete="off">
+
+            <div class="hero-suggestions" id="hero-end-suggestions" role="listbox"></div>
 
             <span class="field__icon" aria-hidden="true">
               <!-- Pin -->
@@ -62,21 +67,135 @@
         </div>
 
         <div class="hero-form__actions">
-          <button class="btn-primary" type="submit">R�server</button>
+          <button class="btn-primary" type="submit">R&eacute;server</button>
         </div>
 
       </form>
     </div>
   </div>
 
-  <section class="premium">
+  <section class="premium parallax-zoom">
     <div class="premium__inner">
-      <h2 class="premium__title">SERVICES DE CHAUFFEUR PRIV�E PRENIUM</h2>
+      <h2 class="premium__title">SERVICES DE CHAUFFEUR PRIV&Eacute; PREMIUM</h2>
       <p class="premium__text">
         Profitez d&#39;un service de transport haut de gamme avec chauffeur professionnel. V&#233;hicule confortable, ponctualit&#233; garantie et discr&#233;tion assur&#233;e pour tous vos d&#233;placements. Que ce soit pour un trajet priv&#233;, professionnel ou touristique, nous vous accompagnons avec s&#233;rieux et &#233;l&#233;gance afin de vous offrir une exp&#233;rience de voyage sereine.
       </p>
     </div>
   </section>
-</main>
+  <section class="popular">
+    <div class="popular__header">
+      <h2 class="popular__title">Les services populaires</h2>
+      <hr class="popular__rule" />
+    </div>
+
+    <div class="popular__grid">
+      <a class="card card--big" href="<?php echo esc_url( home_url('/depose-aeroport/') ); ?>">
+        <div class="card__media">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/photo avion aeroport.webp" alt="Transfert aéroport" />
+        </div>
+
+        <div class="card__overlay">
+          <p class="card__title">Transfert aéroport</p>
+          <p class="card__cta">Découvrir &rsaquo;</p>
+        </div>
+      </a>
+
+      <a class="card" href="<?php echo esc_url( home_url('/trajet-en-ville/') ); ?>">
+        <div class="card__media">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/trajet en ville.webp" alt="Trajet en ville" />
+        </div>
+
+        <div class="card__overlay">
+          <p class="card__title">Trajet en ville</p>
+          <p class="card__cta">Découvrir &rsaquo;</p>
+        </div>
+      </a>
+
+      <a class="card" href="<?php echo esc_url( home_url('/parcours-touristique/') ); ?>">
+        <div class="card__media">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/Photo parcours touristique.webp" alt="Trajet touristique" />
+        </div>
+
+        <div class="card__overlay">
+          <p class="card__title">Trajet touristique</p>
+          <p class="card__cta">Découvrir &rsaquo;</p>
+        </div>
+      </a>
+    </div>
+  </section>  <section class="presentation">
+    <div class="presentation__content">
+      <h2 class="presentation__title">PLUS QU&rsquo;UN SIMPLE TRAJET</h2>
+      <div class="presentation__text">
+        <p>
+          Plus qu&rsquo;un simple d&eacute;placement d'un point A vers un point B, chaque trajet que vous entreprenez avec nous est une v&eacute;ritable exp&eacute;rience sur mesure, minutieusement pens&eacute;e pour votre confort absolu et votre totale s&eacute;r&eacute;nit&eacute;. Nous sommes convaincus que le transport ne doit plus &ecirc;tre une contrainte, mais une parenth&egrave;se privil&eacute;gi&eacute;e dans votre journ&eacute;e.
+        </p>
+        <p>
+          C&rsquo;est pourquoi nous mettons un point d&rsquo;honneur &agrave; soigner chaque d&eacute;tail, de l'accueil personnalis&eacute; &agrave; la fluidit&eacute; de la conduite, afin de vous garantir un moment agr&eacute;able et ressour&ccedil;ant. Notre engagement est de transformer vos minutes de voyage en un instant de calme et de raffinement, o&ugrave; votre seule pr&eacute;occupation sera de vous laisser porter.
+        </p>
+      </div>
+      <div class="presentation__image parallax-zoom">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/photo chauffeur homepage.webp" alt="Chauffeur priv&eacute;" />
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews reviews--slider">
+    <h2>Les avis de nos clients</h2>
+    <hr>
+
+    <div class="slider">
+      <div class="slider__track">
+        <div class="review">
+          <h3 class="review__name">Sandrine Duval</h3>
+          <p class="review__meta">Parcours touristique il y a 1 jour</p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Exp&eacute;rience Parisienne Inoubliable !</strong></p>
+          <p class="review__text">Un service tout simplement exceptionnel ! J'ai eu le plaisir d'&ecirc;tre conduite par Monsieur Antoine &agrave; bord d'un magnifique Mercedes Classe V pour mon tour touristique.</p>
+          <p class="review__text">Le confort du v&eacute;hicule est incomparable : spacieux et impeccable, parfait pour admirer Paris sans stress logistique.</p>
+          <p class="review__text">Monsieur Antoine a fait preuve d'un professionnalisme rare. Il &eacute;tait ponctuel, discret et d'une courtoisie exquise, adaptant l'itin&eacute;raire &agrave; mes envies tout en partageant des anecdotes passionnantes.</p>
+        </div>
+
+        <div class="review">
+          <h3 class="review__name">Martin Rodrigues</h3>
+          <p class="review__meta">Trajet en ville il y a 3 jours</p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Un trajet parfait du d&eacute;but &agrave; la fin</strong></p>
+          <p class="review__text">V&eacute;hicule confortable, chauffeur tr&egrave;s professionnel et ponctuel.</p>
+          <p class="review__text">R&eacute;servation rapide et service fluide. Je recommande sans h&eacute;siter.</p>
+        </div>
+
+        <div class="review">
+          <h3 class="review__name">Louise Renard</h3>
+          <p class="review__meta">Transfert a&eacute;roport il y a 2 jours</p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Confort et s&eacute;r&eacute;nit&eacute;</strong></p>
+          <p class="review__text">Arriv&eacute;e &agrave; l'heure, conduite souple et service premium.</p>
+          <p class="review__text">Une exp&eacute;rience tr&egrave;s rassurante, je reprendrai ce service.</p>
+        </div>
+
+        <div class="review">
+          <h3 class="review__name">Sandrine Duval</h3>
+          <p class="review__meta">Parcours touristique il y a 1 jour</p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Exp&eacute;rience Parisienne Inoubliable !</strong></p>
+          <p class="review__text">Un service tout simplement exceptionnel ! J'ai eu le plaisir d'&ecirc;tre conduite par Monsieur Antoine &agrave; bord d'un magnifique Mercedes Classe V pour mon tour touristique.</p>
+          <p class="review__text">Le confort du v&eacute;hicule est incomparable : spacieux et impeccable, parfait pour admirer Paris sans stress logistique.</p>
+          <p class="review__text">Monsieur Antoine a fait preuve d'un professionnalisme rare. Il &eacute;tait ponctuel, discret et d'une courtoisie exquise, adaptant l'itin&eacute;raire &agrave; mes envies tout en partageant des anecdotes passionnantes.</p>
+        </div>
+
+        <div class="review">
+          <h3 class="review__name">Martin Rodrigues</h3>
+          <p class="review__meta">Trajet en ville il y a 3 jours</p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Un trajet parfait du d&eacute;but &agrave; la fin</strong></p>
+          <p class="review__text">V&eacute;hicule confortable, chauffeur tr&egrave;s professionnel et ponctuel.</p>
+          <p class="review__text">R&eacute;servation rapide et service fluide. Je recommande sans h&eacute;siter.</p>
+        </div>
+
+        <div class="review">
+          <h3 class="review__name">Louise Renard</h3>
+          <p class="review__meta">Transfert a&eacute;roport il y a 2 jours</p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Confort et s&eacute;r&eacute;nit&eacute;</strong></p>
+          <p class="review__text">Arriv&eacute;e &agrave; l'heure, conduite souple et service premium.</p>
+          <p class="review__text">Une exp&eacute;rience tr&egrave;s rassurante, je reprendrai ce service.</p>
+        </div>
+      </div>
+    </div>
+  </section></main>
 
 <?php get_footer(); ?>

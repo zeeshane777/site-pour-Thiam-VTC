@@ -59,7 +59,7 @@ $inscription_url  = $page_inscription
 <main class="tsf-login-page">
   <section class="tsf-login-card" aria-labelledby="tsf-login-title">
 
-    <h1 id="tsf-login-title" class="tsf-login-title">Se connectez</h1>
+    <h1 id="tsf-login-title" class="tsf-login-title">Se connecter</h1>
 
     <?php if ( ! empty($error_msg) ) : ?>
       <div class="tsf-login-alert" role="alert">
@@ -101,11 +101,11 @@ $inscription_url  = $page_inscription
 
       <label class="tsf-checkbox">
         <input type="checkbox" id="tsf_toggle_password">
-        <span>Affichez le mot de passe</span>
+        <span>Afficher le mot de passe</span>
       </label>
 
       <button class="tsf-btn-primary" type="submit" name="tsf_login_submit" value="1">
-        Continuez
+        Continuer
       </button>
 
       <p class="tsf-login-foot">
@@ -126,7 +126,7 @@ $inscription_url  = $page_inscription
           alt="Google"
           class="tsf-social-icon"
         >
-        <span>Continuez avec Google</span>
+        <span>Continuer avec Google</span>
       </a>
 
     </form>
