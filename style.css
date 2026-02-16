@@ -57,8 +57,8 @@ border-radius: 8px;
   inset: 0;
   background-image: var(--parallax-image);
   background-size: cover;
-  background-position: center;
-  transform: translate3d(0, var(--pz-shift, 0px), 0) scale(var(--pz-scale, 1.28));
+  background-position: var(--pz-position, center);
+  transform: translate3d(0, var(--pz-shift, 0px), 0) scale(var(--pz-scale, 1.16));
   will-change: transform;
   z-index: 0;
 }
@@ -70,14 +70,20 @@ border-radius: 8px;
 
 .hero.parallax-zoom{
   --parallax-image: url("assets/Cover home.webp");
+  --pz-scale: 1.08;
+  --pz-position: center 36%;
 }
 
 .premium.parallax-zoom{
   --parallax-image: url("assets/interieurs.webp");
+  --pz-scale: 1.1;
+  --pz-position: center 50%;
 }
 
 .presentation__image.parallax-zoom{
   --parallax-image: url("assets/photo chauffeur homepage.webp");
+  --pz-scale: 1.08;
+  --pz-position: center 45%;
 }
 
 /* ombre pour lisibilite */
@@ -727,10 +733,17 @@ line-height: 105.2%; /* 79.952px */
 .home-gap .hero-form{
   position: static;
   margin: 0;
+  width: 100%;
+  max-width: none;
   left: auto;
   right: auto;
   bottom: auto;
   transform: none;
+  height: auto;
+  min-height: 0;
+  padding: 20px 24px 24px;
+  justify-content: flex-start;
+  gap: 14px;
 }
 
 .home-section__inner{
@@ -1638,6 +1651,24 @@ line-height: 105.2%; /* 79.952px */
   color: #1d1d1d;
 }
 
+@media (min-width: 1200px) and (max-width: 1700px){
+  .aero-landing--depose{
+    max-width: none !important;
+    width: 100%;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .aero-landing--depose .aero-hero{
+    margin: 8px 0 10px !important;
+  }
+
+  .aero-landing--depose .aero-feature-row{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 .aero-landing--depose .aero-hero{
   margin: 8px auto 10px;
   width: 100%;
@@ -1950,6 +1981,15 @@ line-height: 105.2%; /* 79.952px */
   z-index: 2;
 }
 
+.aero-landing--depose .aero-split > *{
+  min-width: 0;
+}
+
+.aero-side-menu__row > span:first-child{
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .aero-landing--depose .aero-story{
   margin: 0;
   border: 0;
@@ -2115,6 +2155,49 @@ line-height: 105.2%; /* 79.952px */
   text-decoration: none;
 }
 
+@media (max-width: 1400px){
+  .aero-landing--depose .aero-hero{
+    height: clamp(540px, 60vw, 747px);
+  }
+
+  .aero-landing--depose .aero-split{
+    grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .aero-landing--depose .aero-side-menu,
+  .aero-landing--depose .aero-img-card--2{
+    height: clamp(520px, 58vw, 827px);
+    min-height: clamp(520px, 58vw, 827px);
+  }
+
+  .aero-side-menu__row{
+    font-size: clamp(22px, 2.1vw, 32px);
+  }
+
+  .aero-side-menu__panel p,
+  .aero-side-menu__panel a{
+    font-size: clamp(18px, 1.6vw, 24px);
+    line-height: 1.25;
+  }
+
+  .aero-landing--depose #coffre .aero-story__media,
+  .aero-landing--depose #sieges .aero-story__media{
+    height: clamp(320px, 34vw, 500px);
+    min-height: clamp(320px, 34vw, 500px);
+  }
+
+  .aero-landing--depose #coffre .aero-text-block h2,
+  .aero-landing--depose #sieges .aero-text-block h2{
+    font-size: clamp(34px, 3.2vw, 48px);
+  }
+
+  .aero-landing--depose #coffre .aero-text-block p,
+  .aero-landing--depose #sieges .aero-text-block p{
+    font-size: clamp(18px, 1.8vw, 24px);
+    line-height: 1.35;
+  }
+}
+
 @media (max-width: 780px){
   .aero-story,
   .aero-story.aero-story--reverse{
@@ -2246,6 +2329,174 @@ body.home .popular{
 body.home .presentation{
   margin-left: -24px;
   margin-right: -24px;
+}
+
+@media (min-width: 1200px) and (max-width: 1900px){
+  body.home main,
+  body:not(.home) main.page{
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  body.home .presentation{
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+  }
+
+  .hero,
+  .premium{
+    width: 100% !important;
+    max-width: none !important;
+    margin: 12px 0 !important;
+  }
+
+  .home-gap__inner{
+    width: min(100%, calc(100% - 24px)) !important;
+  }
+
+  .popular,
+  .presentation__content,
+  .reviews__header,
+  .reviews__grid,
+  .aero-landing,
+  .aero-landing--depose,
+  .home-section__inner{
+    max-width: none !important;
+    width: 100% !important;
+  }
+}
+
+/* ===== GLOBAL RESPONSIVE ADD-ON (laptop/mac) ===== */
+@media (max-width: 1366px){
+  .hero.parallax-zoom{
+    --pz-scale: 1.03;
+    --pz-position: center 32%;
+  }
+
+  .premium.parallax-zoom{
+    --pz-scale: 1.05;
+  }
+
+  body.home main{
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero,
+  .premium{
+    width: 100%;
+    margin: 12px 0;
+    height: auto;
+    min-height: 780px;
+  }
+
+  .hero{
+    padding: 0 28px 24px 28px;
+  }
+
+  .hero__title{
+    width: min(100%, 640px);
+    font-size: clamp(48px, 5.1vw, 70px);
+    margin-bottom: 92px;
+  }
+
+  .home-gap{
+    height: 210px;
+  }
+
+  .home-gap__inner{
+    width: min(1312px, calc(100% - 32px));
+  }
+
+  .hero-form{
+    max-width: none;
+    height: auto;
+    min-height: 280px;
+    padding: 24px 28px;
+  }
+
+  .hero-form h2{
+    font-size: clamp(34px, 3.5vw, 46px);
+  }
+
+  .field{
+    min-width: 0;
+  }
+
+  .popular{
+    max-width: 100%;
+    padding: 12px 0;
+  }
+
+  .popular__title{
+    font-size: clamp(46px, 5.4vw, 64px);
+  }
+
+  .popular .popular__grid{
+    grid-auto-rows: 340px;
+  }
+
+  .popular .card{
+    min-height: 340px;
+    height: 340px;
+  }
+
+  .popular .card--big{
+    min-height: 690px;
+    height: 690px;
+  }
+
+  .popular .card__title{
+    width: min(92%, 360px);
+    font-size: clamp(24px, 2.5vw, 32px);
+  }
+
+  .presentation{
+    padding: 64px 16px;
+  }
+
+  .presentation__content{
+    gap: 24px 32px;
+  }
+
+  .presentation__title{
+    font-size: clamp(36px, 3.8vw, 48px);
+  }
+
+  .presentation__text p{
+    font-size: clamp(18px, 1.9vw, 24px);
+  }
+
+  .presentation__image{
+    height: clamp(420px, 44vw, 620px);
+  }
+
+  .aero-landing{
+    max-width: 100%;
+  }
+
+  .aero-img-card--4{
+    width: 100%;
+    height: clamp(460px, 48vw, 688px);
+    min-height: clamp(460px, 48vw, 688px);
+  }
+
+  .aero-landing--depose{
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .aero-feature-item__title--reservation,
+  .aero-feature-item__title--pickup,
+  .aero-feature-item__title--serenites{
+    font-size: clamp(24px, 2.5vw, 32px);
+  }
+
+  .aero-feature-item__text--pickup,
+  .aero-feature-item__text--timing,
+  .aero-feature-item__text--serenites{
+    font-size: clamp(16px, 1.7vw, 20px);
+  }
 }
 
 /* ===== GLOBAL RESPONSIVE ADD-ON (mobile/tablet only) ===== */
@@ -2787,5 +3038,78 @@ body.home .presentation{
 
   .home-gap .hero-form .field__icon{
     margin-left: auto !important;
+  }
+}
+
+/* ===== 404 PAGE ===== */
+.tsf-404{
+  min-height: clamp(480px, 65vh, 780px);
+  display: grid;
+  place-items: center;
+  padding: 32px 24px 56px;
+}
+
+.tsf-404__card{
+  width: min(920px, 100%);
+  background: #f9f7f2;
+  border: 1px solid rgba(20, 20, 20, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.tsf-404__code{
+  margin: 0 0 8px;
+  color: #3a0713;
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tsf-404__title{
+  margin: 0;
+  color: #141414;
+  font-family: Urbanist, system-ui, sans-serif;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.05;
+}
+
+.tsf-404__text{
+  margin: 12px auto 0;
+  max-width: 640px;
+  color: rgba(20, 20, 20, 0.85);
+  font-family: Satoshi, system-ui, sans-serif;
+  font-size: 20px;
+}
+
+.tsf-404__actions{
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tsf-404__actions .btn-primary,
+.tsf-404__actions .btn-secondary{
+  width: 100%;
+  text-decoration: none;
+}
+
+@media (max-width: 720px){
+  .tsf-404{
+    padding: 20px 12px 36px;
+  }
+
+  .tsf-404__card{
+    padding: 24px 14px;
+  }
+
+  .tsf-404__text{
+    font-size: 16px;
+  }
+
+  .tsf-404__actions{
+    grid-template-columns: 1fr;
   }
 }

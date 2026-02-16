@@ -1,11 +1,162 @@
-<?php get_header(); ?>
+<?php
+get_header();
+
+$asset_base = get_template_directory_uri() . '/assets/';
+
+$home_hero_image = $asset_base . rawurlencode('hero1.webp');
+$home_hero_title_line_1 = 'Votre prochain trajet';
+$home_hero_title_line_2 = 'dans ce qui se fait de mieux';
+$home_form_title = 'Ou allons-nous ?';
+
+$home_premium_title = 'SERVICES DE CHAUFFEUR PRIVE PREMIUM';
+$home_premium_text = "Profitez d'un service de transport haut de gamme avec chauffeur professionnel. Vehicule confortable, ponctualite garantie et discretion assuree pour tous vos deplacements. Que ce soit pour un trajet prive, professionnel ou touristique, nous vous accompagnons avec serieux et elegance afin de vous offrir une experience de voyage sereine.";
+
+$home_popular_title = 'Les services populaires';
+$home_card_1_title = 'Transfert aeroport';
+$home_card_1_cta = 'Decouvrir >';
+$home_card_1_url = home_url('/depose-aeroport/');
+$home_card_1_img = $asset_base . rawurlencode('photo avion aeroport.webp');
+
+$home_card_2_title = 'Trajet en ville';
+$home_card_2_cta = 'Decouvrir >';
+$home_card_2_url = home_url('/trajet-en-ville/');
+$home_card_2_img = $asset_base . rawurlencode('trajet en ville.webp');
+
+$home_card_3_title = 'Trajet touristique';
+$home_card_3_cta = 'Decouvrir >';
+$home_card_3_url = home_url('/parcours-touristique/');
+$home_card_3_img = $asset_base . rawurlencode('Photo parcours touristique.webp');
+
+$home_presentation_image = $asset_base . rawurlencode('photo chauffeur homepage.webp');
+$home_presentation_title = 'PLUS QU\'UN SIMPLE TRAJET';
+$home_presentation_text_1 = "Plus qu'un simple deplacement d'un point A vers un point B, chaque trajet que vous entreprenez avec nous est une veritable experience sur mesure, minutieusement pensee pour votre confort absolu et votre totale serenite. Nous sommes convaincus que le transport ne doit plus etre une contrainte, mais une parenthese privilegiee dans votre journee.";
+$home_presentation_text_2 = "C'est pourquoi nous mettons un point d'honneur a soigner chaque detail, de l'accueil personnalise a la fluidite de la conduite, afin de vous garantir un moment agreable et ressourcant. Notre engagement est de transformer vos minutes de voyage en un instant de calme et de raffinement, ou votre seule preoccupation sera de vous laisser porter.";
+
+$home_reviews_title = 'Les avis de nos clients';
+$home_review_1_name = 'Sandrine Duval';
+$home_review_1_meta = 'Parcours touristique il y a 1 jour';
+$home_review_1_headline = 'Experience Parisienne Inoubliable !';
+$home_review_1_text_1 = "Un service tout simplement exceptionnel ! J'ai eu le plaisir d'etre conduite par Monsieur Antoine a bord d'un magnifique Mercedes Classe V pour mon tour touristique.";
+$home_review_1_text_2 = "Le confort du vehicule est incomparable : spacieux et impeccable, parfait pour admirer Paris sans stress logistique.";
+$home_review_1_text_3 = "Monsieur Antoine a fait preuve d'un professionnalisme rare. Il etait ponctuel, discret et d'une courtoisie exquise, adaptant l'itineraire a mes envies tout en partageant des anecdotes passionnantes.";
+
+$home_review_2_name = 'Martin Rodrigues';
+$home_review_2_meta = 'Trajet en ville il y a 3 jours';
+$home_review_2_headline = 'Un trajet parfait du debut a la fin';
+$home_review_2_text_1 = 'Vehicule confortable, chauffeur tres professionnel et ponctuel.';
+$home_review_2_text_2 = 'Reservation rapide et service fluide. Je recommande sans hesiter.';
+
+$home_review_3_name = 'Louise Renard';
+$home_review_3_meta = 'Transfert aeroport il y a 2 jours';
+$home_review_3_headline = 'Confort et serenite';
+$home_review_3_text_1 = "Arrivee a l'heure, conduite souple et service premium.";
+$home_review_3_text_2 = 'Une experience tres rassurante, je reprendrai ce service.';
+
+if ( function_exists('get_field') ) {
+  $value = get_field('home_hero_image');
+  if ( is_array($value) && ! empty($value['url']) ) { $home_hero_image = $value['url']; }
+  elseif ( is_string($value) && $value !== '' ) { $home_hero_image = $value; }
+
+  $value = get_field('home_hero_title_line_1');
+  if ( is_string($value) && $value !== '' ) { $home_hero_title_line_1 = $value; }
+  $value = get_field('home_hero_title_line_2');
+  if ( is_string($value) && $value !== '' ) { $home_hero_title_line_2 = $value; }
+  $value = get_field('home_form_title');
+  if ( is_string($value) && $value !== '' ) { $home_form_title = $value; }
+  $value = get_field('home_premium_title');
+  if ( is_string($value) && $value !== '' ) { $home_premium_title = $value; }
+  $value = get_field('home_premium_text');
+  if ( is_string($value) && $value !== '' ) { $home_premium_text = $value; }
+  $value = get_field('home_popular_title');
+  if ( is_string($value) && $value !== '' ) { $home_popular_title = $value; }
+
+  $value = get_field('home_card_1_title');
+  if ( is_string($value) && $value !== '' ) { $home_card_1_title = $value; }
+  $value = get_field('home_card_1_cta');
+  if ( is_string($value) && $value !== '' ) { $home_card_1_cta = $value; }
+  $value = get_field('home_card_1_url');
+  if ( is_string($value) && $value !== '' ) { $home_card_1_url = $value; }
+  $value = get_field('home_card_1_img');
+  if ( is_array($value) && ! empty($value['url']) ) { $home_card_1_img = $value['url']; }
+  elseif ( is_string($value) && $value !== '' ) { $home_card_1_img = $value; }
+
+  $value = get_field('home_card_2_title');
+  if ( is_string($value) && $value !== '' ) { $home_card_2_title = $value; }
+  $value = get_field('home_card_2_cta');
+  if ( is_string($value) && $value !== '' ) { $home_card_2_cta = $value; }
+  $value = get_field('home_card_2_url');
+  if ( is_string($value) && $value !== '' ) { $home_card_2_url = $value; }
+  $value = get_field('home_card_2_img');
+  if ( is_array($value) && ! empty($value['url']) ) { $home_card_2_img = $value['url']; }
+  elseif ( is_string($value) && $value !== '' ) { $home_card_2_img = $value; }
+
+  $value = get_field('home_card_3_title');
+  if ( is_string($value) && $value !== '' ) { $home_card_3_title = $value; }
+  $value = get_field('home_card_3_cta');
+  if ( is_string($value) && $value !== '' ) { $home_card_3_cta = $value; }
+  $value = get_field('home_card_3_url');
+  if ( is_string($value) && $value !== '' ) { $home_card_3_url = $value; }
+  $value = get_field('home_card_3_img');
+  if ( is_array($value) && ! empty($value['url']) ) { $home_card_3_img = $value['url']; }
+  elseif ( is_string($value) && $value !== '' ) { $home_card_3_img = $value; }
+
+  $value = get_field('home_presentation_image');
+  if ( is_array($value) && ! empty($value['url']) ) { $home_presentation_image = $value['url']; }
+  elseif ( is_string($value) && $value !== '' ) { $home_presentation_image = $value; }
+
+  $value = get_field('home_presentation_title');
+  if ( is_string($value) && $value !== '' ) { $home_presentation_title = $value; }
+  $value = get_field('home_presentation_text_1');
+  if ( is_string($value) && $value !== '' ) { $home_presentation_text_1 = $value; }
+  $value = get_field('home_presentation_text_2');
+  if ( is_string($value) && $value !== '' ) { $home_presentation_text_2 = $value; }
+
+  $value = get_field('home_reviews_title');
+  if ( is_string($value) && $value !== '' ) { $home_reviews_title = $value; }
+
+  $value = get_field('home_review_1_name');
+  if ( is_string($value) && $value !== '' ) { $home_review_1_name = $value; }
+  $value = get_field('home_review_1_meta');
+  if ( is_string($value) && $value !== '' ) { $home_review_1_meta = $value; }
+  $value = get_field('home_review_1_headline');
+  if ( is_string($value) && $value !== '' ) { $home_review_1_headline = $value; }
+  $value = get_field('home_review_1_text_1');
+  if ( is_string($value) && $value !== '' ) { $home_review_1_text_1 = $value; }
+  $value = get_field('home_review_1_text_2');
+  if ( is_string($value) && $value !== '' ) { $home_review_1_text_2 = $value; }
+  $value = get_field('home_review_1_text_3');
+  if ( is_string($value) && $value !== '' ) { $home_review_1_text_3 = $value; }
+
+  $value = get_field('home_review_2_name');
+  if ( is_string($value) && $value !== '' ) { $home_review_2_name = $value; }
+  $value = get_field('home_review_2_meta');
+  if ( is_string($value) && $value !== '' ) { $home_review_2_meta = $value; }
+  $value = get_field('home_review_2_headline');
+  if ( is_string($value) && $value !== '' ) { $home_review_2_headline = $value; }
+  $value = get_field('home_review_2_text_1');
+  if ( is_string($value) && $value !== '' ) { $home_review_2_text_1 = $value; }
+  $value = get_field('home_review_2_text_2');
+  if ( is_string($value) && $value !== '' ) { $home_review_2_text_2 = $value; }
+
+  $value = get_field('home_review_3_name');
+  if ( is_string($value) && $value !== '' ) { $home_review_3_name = $value; }
+  $value = get_field('home_review_3_meta');
+  if ( is_string($value) && $value !== '' ) { $home_review_3_meta = $value; }
+  $value = get_field('home_review_3_headline');
+  if ( is_string($value) && $value !== '' ) { $home_review_3_headline = $value; }
+  $value = get_field('home_review_3_text_1');
+  if ( is_string($value) && $value !== '' ) { $home_review_3_text_1 = $value; }
+  $value = get_field('home_review_3_text_2');
+  if ( is_string($value) && $value !== '' ) { $home_review_3_text_2 = $value; }
+}
+?>
 
 <main>
-  <section class="hero parallax-zoom">
+  <section class="hero parallax-zoom" style="background-image:url('<?php echo esc_url($home_hero_image); ?>');">
     <div class="hero__content">
       <h1 class="hero__title">
-        Votre prochain trajet<br>
-        dans ce qui se fait de mieux
+        <?php echo esc_html($home_hero_title_line_1); ?><br>
+        <?php echo esc_html($home_hero_title_line_2); ?>
       </h1>
     </div>
   </section>
@@ -14,7 +165,7 @@
     <div class="home-gap__inner">
       <form class="hero-form" id="hero-form" action="<?php echo esc_url( home_url('/trajet-en-ville/') ); ?>" method="get">
         <input type="hidden" name="reservation" value="1">
-        <h2>Où allons-nous ?</h2>
+        <h2><?php echo esc_html($home_form_title); ?></h2>
 
         <div class="hero-form__addresses">
 
@@ -76,123 +227,123 @@
 
   <section class="premium parallax-zoom">
     <div class="premium__inner">
-      <h2 class="premium__title">SERVICES DE CHAUFFEUR PRIV&Eacute; PREMIUM</h2>
+      <h2 class="premium__title"><?php echo esc_html($home_premium_title); ?></h2>
       <p class="premium__text">
-        Profitez d&#39;un service de transport haut de gamme avec chauffeur professionnel. V&#233;hicule confortable, ponctualit&#233; garantie et discr&#233;tion assur&#233;e pour tous vos d&#233;placements. Que ce soit pour un trajet priv&#233;, professionnel ou touristique, nous vous accompagnons avec s&#233;rieux et &#233;l&#233;gance afin de vous offrir une exp&#233;rience de voyage sereine.
+        <?php echo esc_html($home_premium_text); ?>
       </p>
     </div>
   </section>
   <section class="popular">
     <div class="popular__header">
-      <h2 class="popular__title">Les services populaires</h2>
+      <h2 class="popular__title"><?php echo esc_html($home_popular_title); ?></h2>
       <hr class="popular__rule" />
     </div>
 
     <div class="popular__grid">
-      <a class="card card--big" href="<?php echo esc_url( home_url('/depose-aeroport/') ); ?>">
+      <a class="card card--big" href="<?php echo esc_url($home_card_1_url); ?>">
         <div class="card__media">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/photo avion aeroport.webp" alt="Transfert aéroport" />
+          <img src="<?php echo esc_url($home_card_1_img); ?>" alt="<?php echo esc_attr($home_card_1_title); ?>" />
         </div>
 
         <div class="card__overlay">
-          <p class="card__title">Transfert aéroport</p>
-          <p class="card__cta">Découvrir &rsaquo;</p>
+          <p class="card__title"><?php echo esc_html($home_card_1_title); ?></p>
+          <p class="card__cta"><?php echo esc_html($home_card_1_cta); ?></p>
         </div>
       </a>
 
-      <a class="card" href="<?php echo esc_url( home_url('/trajet-en-ville/') ); ?>">
+      <a class="card" href="<?php echo esc_url($home_card_2_url); ?>">
         <div class="card__media">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/trajet en ville.webp" alt="Trajet en ville" />
+          <img src="<?php echo esc_url($home_card_2_img); ?>" alt="<?php echo esc_attr($home_card_2_title); ?>" />
         </div>
 
         <div class="card__overlay">
-          <p class="card__title">Trajet en ville</p>
-          <p class="card__cta">Découvrir &rsaquo;</p>
+          <p class="card__title"><?php echo esc_html($home_card_2_title); ?></p>
+          <p class="card__cta"><?php echo esc_html($home_card_2_cta); ?></p>
         </div>
       </a>
 
-      <a class="card" href="<?php echo esc_url( home_url('/parcours-touristique/') ); ?>">
+      <a class="card" href="<?php echo esc_url($home_card_3_url); ?>">
         <div class="card__media">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/Photo parcours touristique.webp" alt="Trajet touristique" />
+          <img src="<?php echo esc_url($home_card_3_img); ?>" alt="<?php echo esc_attr($home_card_3_title); ?>" />
         </div>
 
         <div class="card__overlay">
-          <p class="card__title">Trajet touristique</p>
-          <p class="card__cta">Découvrir &rsaquo;</p>
+          <p class="card__title"><?php echo esc_html($home_card_3_title); ?></p>
+          <p class="card__cta"><?php echo esc_html($home_card_3_cta); ?></p>
         </div>
       </a>
     </div>
   </section>  <section class="presentation">
     <div class="presentation__content">
-      <h2 class="presentation__title">PLUS QU&rsquo;UN SIMPLE TRAJET</h2>
+      <h2 class="presentation__title"><?php echo esc_html($home_presentation_title); ?></h2>
       <div class="presentation__text">
         <p>
-          Plus qu&rsquo;un simple d&eacute;placement d'un point A vers un point B, chaque trajet que vous entreprenez avec nous est une v&eacute;ritable exp&eacute;rience sur mesure, minutieusement pens&eacute;e pour votre confort absolu et votre totale s&eacute;r&eacute;nit&eacute;. Nous sommes convaincus que le transport ne doit plus &ecirc;tre une contrainte, mais une parenth&egrave;se privil&eacute;gi&eacute;e dans votre journ&eacute;e.
+          <?php echo esc_html($home_presentation_text_1); ?>
         </p>
         <p>
-          C&rsquo;est pourquoi nous mettons un point d&rsquo;honneur &agrave; soigner chaque d&eacute;tail, de l'accueil personnalis&eacute; &agrave; la fluidit&eacute; de la conduite, afin de vous garantir un moment agr&eacute;able et ressour&ccedil;ant. Notre engagement est de transformer vos minutes de voyage en un instant de calme et de raffinement, o&ugrave; votre seule pr&eacute;occupation sera de vous laisser porter.
+          <?php echo esc_html($home_presentation_text_2); ?>
         </p>
       </div>
       <div class="presentation__image parallax-zoom">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/photo chauffeur homepage.webp" alt="Chauffeur priv&eacute;" />
+        <img src="<?php echo esc_url($home_presentation_image); ?>" alt="Chauffeur prive" />
       </div>
     </div>
   </section>
 
   <section class="reviews reviews--slider">
-    <h2>Les avis de nos clients</h2>
+    <h2><?php echo esc_html($home_reviews_title); ?></h2>
     <hr>
 
     <div class="slider">
       <div class="slider__track">
         <div class="review">
-          <h3 class="review__name">Sandrine Duval</h3>
-          <p class="review__meta">Parcours touristique il y a 1 jour</p>
-          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Exp&eacute;rience Parisienne Inoubliable !</strong></p>
-          <p class="review__text">Un service tout simplement exceptionnel ! J'ai eu le plaisir d'&ecirc;tre conduite par Monsieur Antoine &agrave; bord d'un magnifique Mercedes Classe V pour mon tour touristique.</p>
-          <p class="review__text">Le confort du v&eacute;hicule est incomparable : spacieux et impeccable, parfait pour admirer Paris sans stress logistique.</p>
-          <p class="review__text">Monsieur Antoine a fait preuve d'un professionnalisme rare. Il &eacute;tait ponctuel, discret et d'une courtoisie exquise, adaptant l'itin&eacute;raire &agrave; mes envies tout en partageant des anecdotes passionnantes.</p>
+          <h3 class="review__name"><?php echo esc_html($home_review_1_name); ?></h3>
+          <p class="review__meta"><?php echo esc_html($home_review_1_meta); ?></p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong><?php echo esc_html($home_review_1_headline); ?></strong></p>
+          <p class="review__text"><?php echo esc_html($home_review_1_text_1); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_1_text_2); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_1_text_3); ?></p>
         </div>
 
         <div class="review">
-          <h3 class="review__name">Martin Rodrigues</h3>
-          <p class="review__meta">Trajet en ville il y a 3 jours</p>
-          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Un trajet parfait du d&eacute;but &agrave; la fin</strong></p>
-          <p class="review__text">V&eacute;hicule confortable, chauffeur tr&egrave;s professionnel et ponctuel.</p>
-          <p class="review__text">R&eacute;servation rapide et service fluide. Je recommande sans h&eacute;siter.</p>
+          <h3 class="review__name"><?php echo esc_html($home_review_2_name); ?></h3>
+          <p class="review__meta"><?php echo esc_html($home_review_2_meta); ?></p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong><?php echo esc_html($home_review_2_headline); ?></strong></p>
+          <p class="review__text"><?php echo esc_html($home_review_2_text_1); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_2_text_2); ?></p>
         </div>
 
         <div class="review">
-          <h3 class="review__name">Louise Renard</h3>
-          <p class="review__meta">Transfert a&eacute;roport il y a 2 jours</p>
-          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Confort et s&eacute;r&eacute;nit&eacute;</strong></p>
-          <p class="review__text">Arriv&eacute;e &agrave; l'heure, conduite souple et service premium.</p>
-          <p class="review__text">Une exp&eacute;rience tr&egrave;s rassurante, je reprendrai ce service.</p>
+          <h3 class="review__name"><?php echo esc_html($home_review_3_name); ?></h3>
+          <p class="review__meta"><?php echo esc_html($home_review_3_meta); ?></p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong><?php echo esc_html($home_review_3_headline); ?></strong></p>
+          <p class="review__text"><?php echo esc_html($home_review_3_text_1); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_3_text_2); ?></p>
         </div>
 
         <div class="review">
-          <h3 class="review__name">Sandrine Duval</h3>
-          <p class="review__meta">Parcours touristique il y a 1 jour</p>
-          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Exp&eacute;rience Parisienne Inoubliable !</strong></p>
-          <p class="review__text">Un service tout simplement exceptionnel ! J'ai eu le plaisir d'&ecirc;tre conduite par Monsieur Antoine &agrave; bord d'un magnifique Mercedes Classe V pour mon tour touristique.</p>
-          <p class="review__text">Le confort du v&eacute;hicule est incomparable : spacieux et impeccable, parfait pour admirer Paris sans stress logistique.</p>
-          <p class="review__text">Monsieur Antoine a fait preuve d'un professionnalisme rare. Il &eacute;tait ponctuel, discret et d'une courtoisie exquise, adaptant l'itin&eacute;raire &agrave; mes envies tout en partageant des anecdotes passionnantes.</p>
+          <h3 class="review__name"><?php echo esc_html($home_review_1_name); ?></h3>
+          <p class="review__meta"><?php echo esc_html($home_review_1_meta); ?></p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong><?php echo esc_html($home_review_1_headline); ?></strong></p>
+          <p class="review__text"><?php echo esc_html($home_review_1_text_1); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_1_text_2); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_1_text_3); ?></p>
         </div>
 
         <div class="review">
-          <h3 class="review__name">Martin Rodrigues</h3>
-          <p class="review__meta">Trajet en ville il y a 3 jours</p>
-          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Un trajet parfait du d&eacute;but &agrave; la fin</strong></p>
-          <p class="review__text">V&eacute;hicule confortable, chauffeur tr&egrave;s professionnel et ponctuel.</p>
-          <p class="review__text">R&eacute;servation rapide et service fluide. Je recommande sans h&eacute;siter.</p>
+          <h3 class="review__name"><?php echo esc_html($home_review_2_name); ?></h3>
+          <p class="review__meta"><?php echo esc_html($home_review_2_meta); ?></p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong><?php echo esc_html($home_review_2_headline); ?></strong></p>
+          <p class="review__text"><?php echo esc_html($home_review_2_text_1); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_2_text_2); ?></p>
         </div>
 
         <div class="review">
-          <h3 class="review__name">Louise Renard</h3>
-          <p class="review__meta">Transfert a&eacute;roport il y a 2 jours</p>
-          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong>Confort et s&eacute;r&eacute;nit&eacute;</strong></p>
-          <p class="review__text">Arriv&eacute;e &agrave; l'heure, conduite souple et service premium.</p>
-          <p class="review__text">Une exp&eacute;rience tr&egrave;s rassurante, je reprendrai ce service.</p>
+          <h3 class="review__name"><?php echo esc_html($home_review_3_name); ?></h3>
+          <p class="review__meta"><?php echo esc_html($home_review_3_meta); ?></p>
+          <p class="review__headline"><span class="review__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span><strong><?php echo esc_html($home_review_3_headline); ?></strong></p>
+          <p class="review__text"><?php echo esc_html($home_review_3_text_1); ?></p>
+          <p class="review__text"><?php echo esc_html($home_review_3_text_2); ?></p>
         </div>
       </div>
     </div>

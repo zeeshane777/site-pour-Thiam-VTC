@@ -31,7 +31,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_account_nonce'])
   $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
   $password = isset($_POST['password']) ? wp_unslash($_POST['password']) : '';
 
-  $errors = [];
+  $errors = array();
   if ( empty($email) || ! is_email($email) ) {
     $errors[] = 'Adresse mail invalide.';
   } elseif ( $email !== $user->user_email && email_exists($email) ) {
@@ -47,12 +47,12 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tsf_account_nonce'])
   }
 
   if ( empty($errors) ) {
-    $userdata = [
+    $userdata = array(
       'ID' => $user->ID,
       'first_name' => $first_name_value,
       'last_name' => $last_name_value,
       'user_email' => $email,
-    ];
+    );
     if ( $password !== '' ) {
       $userdata['user_pass'] = $password;
     }

@@ -239,6 +239,34 @@
   display: block;
 }
 
+@media (max-width: 1280px){
+  .tsf-login-page{
+    padding: 44px 16px;
+  }
+
+  .tsf-login-card{
+    max-width: min(456px, 100%);
+  }
+
+  .tsf-login-title{
+    font-size: clamp(36px, 4vw, 48px);
+  }
+
+  .tsf-field-inline,
+  .tsf-btn-primary,
+  .tsf-separator{
+    width: 100%;
+  }
+
+  .tsf-inline-label{
+    font-size: clamp(16px, 1.6vw, 20px);
+  }
+
+  .tsf-inline-input{
+    font-size: clamp(16px, 1.6vw, 20px);
+  }
+}
+
 /* =========================
    MOBILE
    ========================= */

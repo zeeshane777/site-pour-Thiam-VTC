@@ -220,8 +220,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const accordionPanels = Array.from(
     document.querySelectorAll("[data-aero-accordion-panel]")
   );
+  const mainAeroImage = document.querySelector("[data-aero-main-image]");
 
   if (accordionToggles.length && accordionPanels.length) {
+    const setMainImage = (name) => {
+      if (!mainAeroImage) {
+        return;
+      }
+      const key = name ? `image${name.charAt(0).toUpperCase()}${name.slice(1)}` : "imageDefault";
+      const nextSrc = mainAeroImage.dataset[key] || mainAeroImage.dataset.imageDefault;
+      if (nextSrc) {
+        mainAeroImage.src = nextSrc;
+      }
+    };
+
     const closePanel = (name) => {
       const panel = accordionPanels.find(
         (item) => item.getAttribute("data-aero-accordion-panel") === name
@@ -233,6 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
       panel.hidden = true;
       toggle.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
+      if (!accordionToggles.some((item) => item.classList.contains("is-open"))) {
+        setMainImage("");
+      }
     };
 
     const openPanel = (name) => {
@@ -250,6 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
       panel.hidden = false;
       toggle.classList.add("is-open");
       toggle.setAttribute("aria-expanded", "true");
+      setMainImage(name);
     };
 
     accordionToggles.forEach((toggle) => {
@@ -269,5 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
+
+    setMainImage("");
   }
 });
